@@ -3,7 +3,7 @@ This layer depends on:
         URI: git://git.yoctoproject.org/poky.git
         branch: dora
         revision: HEAD
-        commit: 9047dee 
+        commit: 84c2763 
 
         URI: git://git.openembedded.org/meta-openembedded
         branch: dora
@@ -13,7 +13,7 @@ This layer depends on:
         URI: git://github.com/gumstix/meta-gumstix.git
         branch: dora
         revision: HEAD
-        commit: 49e2bfb  
+        commit: 9230aa4  
 
-        meta-duovero layer maintainer: Scott Ellis <scott@pansenti.com>
+        meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
 
