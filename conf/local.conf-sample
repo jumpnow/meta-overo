@@ -30,7 +30,7 @@ MACHINE = "overo"
 # Uncomment the following PREFERRED_VERSION line only if there is some reason
 # you need to run the 3.2 kernel on the Overo instead of the default 3.5.
 # One reason would be if you are writing a custom McBSP kernel driver.
-#PREFERRED_VERSION_linux-gumstix_overo = "3.2"
+#PREFERRED_VERSION_linux-gumstix = "3.2"
 
 # DL_DIR = "/oe-sources"
 
