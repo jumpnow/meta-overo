@@ -7,9 +7,10 @@ DEPENDS = "syntrolcam"
 
 SRC_URI = "file://init \
            file://default \
+           file://default-SyntroLCam.ini \
           "
 
-PR = "0"
+PR = "1"
 
 S = "${WORKDIR}"
 
@@ -23,7 +24,10 @@ do_install_append () {
     install -m 0755 init ${D}${sysconfdir}/init.d/syntrolcam
 
     install -d ${D}${sysconfdir}/default
-    install -m 0666 default ${D}${sysconfdir}/default/syntrolcam
+    install -m 0664 default ${D}${sysconfdir}/default/syntrolcam
+
+    install -d ${D}${sysconfdir}/syntro
+    install -m 0664 default-SyntroLCam.ini ${D}${sysconfdir}/syntro/SyntroLCam.ini   
 }
 
 FILES_${PN} = "${sysconfdir}"

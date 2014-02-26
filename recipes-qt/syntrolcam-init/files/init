@@ -13,14 +13,15 @@ if [ ! -f /usr/bin/SyntroLCam ]; then
     exit 0
 fi
 
-start_camera() {
+start_camera() 
+{
     if [ ! -d /home/root/syntro ]; then
         mkdir /home/root/syntro
     fi
 
     cd /home/root/syntro
 
-    /usr/bin/SyntroLCam -s/home/root/syntro/SyntroLCam.ini -c -d    
+    /usr/bin/SyntroLCam -s/etc/syntro/SyntroLCam.ini -c -d    
 }
 
 case "$1" in
