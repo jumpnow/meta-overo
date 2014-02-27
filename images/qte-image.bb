@@ -18,9 +18,17 @@ SYNTRO = " \
     syntrolcam-init \
  "
 
+TS_TOOLS = " \
+    tslib-calibrate \
+    tslib-tests \
+    tslib-conf \
+ "
+
 IMAGE_INSTALL += " \
     ${QT_TOOLS} \
     ${SYNTRO} \
+    ${TS_TOOLS} \
+    psplash \
  "
 
 export IMAGE_BASENAME = "qte-image"
