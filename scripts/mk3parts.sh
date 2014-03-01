@@ -55,22 +55,18 @@ echo -e "\nOkay, here we go ...\n"
 echo -e "=== Zeroing the MBR ===\n"
 dd if=/dev/zero of=$DRIVE bs=1024 count=1024
 
-# Three partition build. Creates a third partition convenient for mounting 
-# the Gumstix as a mass-storage device on another machine.
+## Standard 2 partitions
 # Sectors are 512 bytes
-# 64 MB = 67108864 bytes = 131072 sectors
-# 2 GB = 2147483648 bytes = 4194304 sectors
-# MBR goes in first sector
-# Next 127 sectors are empty to align first partition on a 128 sector boundary
-# First partition starts at sector 128 and goes for 130944 sectors, FAT32
-# Second partition starts at sector 131072 and goes for 4194304 sectors, Linux
-# Third partition starts at 4325376 and goes to end of card, FAT32
+# 0-127: 64KB, no partition, MBR then empty
+# 128-131071: ~64 MB, dos partition, MLO, u-boot, kernel
+# 131072-4194303: ~2GB, linux partition, root filesystem
+# 4194304-end: 2GB+, linux partition, no assigned use
 
 echo -e "\n=== Creating 3 partitions ===\n"
 {
 echo 128,130944,0x0C,*
-echo 131072,4194304,0x83,-
-echo 4325376,+,0x0C,-
+echo 131072,4063232,0x83,-
+echo 4194304,+,0x83,-
 } | sfdisk --force -D -uS -H 255 -S 63 -C $CYLINDERS $DRIVE
 
 

@@ -1,11 +1,5 @@
 #!/bin/bash
 #
-# (c) Copyright 2012 Scott Ellis <scott@pansenti.com>
-# Licensed under terms of GPLv2
-#
-# Based in large on the mksdcard.sh script from Steve Sakoman
-# http://www.sakoman.com/category/3-bootable-sd-microsd-card-creation-script.html
-#
 
 if [ -n "$1" ]; then
 	DRIVE=/dev/$1
@@ -55,12 +49,9 @@ dd if=/dev/zero of=$DRIVE bs=1024 count=1024
 
 # Standard 2 partitions
 # Sectors are 512 bytes
-# 64 MB = 67108864 bytes = 131072 sectors
-# 2 GB = 2147483648 bytes = 4194304 sectors
-# MBR goes in first sector
-# Next 127 sectors are empty to align first partition on a 128 sector boundary
-# First partition starts at sector 128 and goes for 130944 sectors, FAT32
-# Second partition starts at sector 131072 and goes to end of card, Linux
+# 0-127: 64KB, no partition, MBR then empty
+# 128-131071: ~64 MB, dos partition, MLO, u-boot, kernel
+# 131072-end: 2GB+, linux partition, root filesystem
 
 echo -e "\n=== Creating 2 partitions ===\n"
 {
