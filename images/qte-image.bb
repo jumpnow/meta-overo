@@ -7,8 +7,9 @@ require console-image.bb
 PR = "0"
 
 QT_TOOLS = " \
-    qt4-embedded-dev\
     qt4-embedded \
+    qt4-embedded-dev\
+    qt4-embedded-plugin-mousedriver-tslib \
  "
 
 SYNTRO = " \
@@ -20,8 +21,8 @@ SYNTRO = " \
 
 TS_TOOLS = " \
     tslib-calibrate \
-    tslib-tests \
     tslib-conf \
+    tslib-tests \
  "
 
 IMAGE_INSTALL += " \
