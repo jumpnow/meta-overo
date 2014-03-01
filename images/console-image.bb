@@ -14,13 +14,26 @@ CORE_OS = " \
     tzdata \
  "
 
+# Custom kernel modules built out of tree
+KERNEL_MODULES_OOT = " \
+    omap3-pwm \
+    omap3-mux \
+    omap3-irqlat \
+    hrt-test \
+    udelay-test \
+ "
+
 KERNEL_EXTRA_INSTALL = " \
     kernel-modules \
+    ${KERNEL_MODULES_OOT} \
  "
 
 WIFI_SUPPORT = " \
     iw \
+    linux-firmware-rtl8192ce \
+    linux-firmware-rtl8192cu \
     linux-firmware-sd8686 \
+    linux-firmware-wl12xx \
     wpa-supplicant \
  "
 
@@ -46,6 +59,12 @@ DEV_SDK_INSTALL = " \
     pkgconfig \
  "
 
+DEV_EXTRAS = " \
+    avahi-daemon \
+    ntp \
+    ntp-tickadj \
+ "
+
 EXTRA_TOOLS_INSTALL = " \
     bzip2 \
     ethtool \
@@ -67,6 +86,7 @@ EXTRA_TOOLS_INSTALL = " \
 IMAGE_INSTALL += " \
     ${CORE_OS} \
     ${DEV_SDK_INSTALL} \
+    ${DEV_EXTRAS} \
     ${EXTRA_TOOLS_INSTALL} \
     ${KERNEL_EXTRA_INSTALL} \
     ${WIFI_SUPPORT} \
