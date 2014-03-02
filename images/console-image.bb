@@ -67,6 +67,7 @@ DEV_EXTRAS = " \
 
 EXTRA_TOOLS_INSTALL = " \
     bzip2 \
+    devmem2 \
     ethtool \
     findutils \
     i2c-tools \
