@@ -10,7 +10,6 @@ BBLAYERS ?= " \
   ${HOME}/poky-dora/meta-yocto \
   ${HOME}/poky-dora/meta-openembedded/meta-oe \
   ${HOME}/poky-dora/meta-openembedded/meta-networking \
-  ${HOME}/poky-dora/meta-gumstix \
   ${HOME}/overo/meta-overo \
   "
 
