@@ -3,7 +3,7 @@ This layer depends on:
         URI: git://git.yoctoproject.org/poky.git
         branch: dora
         revision: HEAD
-        commit: 98bd952 
+        commit: 609ae39 
 
         URI: git://git.openembedded.org/meta-openembedded
         branch: dora
