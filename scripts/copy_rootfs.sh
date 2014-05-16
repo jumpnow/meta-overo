@@ -15,6 +15,7 @@ fi
 
 if [ -z "$OETMP" ]; then
 	echo -e "\nWorking from local directory"
+    SRCDIR=.
 else
 	echo -e "\nOETMP: $OETMP"
 
@@ -23,7 +24,7 @@ else
 		exit 1
 	fi
 
-	cd ${OETMP}/deploy/images/${MACHINE}
+	SRCDIR=${OETMP}/deploy/images/${MACHINE}
 fi 
 
 echo "IMAGE: $IMAGE"
@@ -37,13 +38,8 @@ fi
 echo -e "HOSTNAME: $TARGET_HOSTNAME\n"
 
 
-if [ ! -f "${IMAGE}-image-${MACHINE}.tar.xz" ]; then
-        echo -e "File not found: ${IMAGE}-image-${MACHINE}.tar.xz\n"
-
-		if [ ! -z "$OETMP" ]; then
-			cd $OLDPWD
-		fi
-
+if [ ! -f "${SRCDIR}/${IMAGE}-image-${MACHINE}.tar.xz" ]; then
+        echo -e "File not found: ${SRCDIR}/${IMAGE}-image-${MACHINE}.tar.xz\n"
         exit 1
 fi
 
@@ -57,30 +53,26 @@ if [ -b $DEV ]; then
 	sudo mount $DEV /media/card
 
 	echo "Extracting ${IMAGE}-image-${MACHINE}.tar.xz to /media/card"
-	sudo tar -C /media/card -xJf ${IMAGE}-image-${MACHINE}.tar.xz
+	sudo tar -C /media/card -xJf ${SRCDIR}/${IMAGE}-image-${MACHINE}.tar.xz
 
 	echo "Writing hostname to /etc/hostname"
 	export TARGET_HOSTNAME
 	sudo -E bash -c 'echo ${TARGET_HOSTNAME} > /media/card/etc/hostname'        
 
-	if [ -f interfaces ]; then
+	if [ -f ${SRCDIR}/interfaces ]; then
 		echo "Writing interfaces to /media/card/etc/network/"
-		sudo cp interfaces /media/card/etc/network/interfaces
+		sudo cp ${SRCDIR}/interfaces /media/card/etc/network/interfaces
 	fi
 
-	if [ -f wpa_supplicant.conf ]; then
+	if [ -f ${SRCDIR}/wpa_supplicant.conf ]; then
 		echo "Writing wpa_supplicant.conf to /media/card/etc/"
-		sudo cp wpa_supplicant.conf /media/card/etc/wpa_supplicant.conf
+		sudo cp ${SRCDIR}/wpa_supplicant.conf /media/card/etc/wpa_supplicant.conf
 	fi
 
 	echo "Unmounting $DEV"
 	sudo umount $DEV
 else
 	echo "Block device $DEV does not exist"
-fi
-
-if [ ! -z "$OETMP" ]; then
-	cd $OLDPWD
 fi
 
 echo "Done"

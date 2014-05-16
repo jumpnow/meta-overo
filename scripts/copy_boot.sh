@@ -9,6 +9,7 @@ fi
 
 if [ -z "$OETMP" ]; then
 	echo -e "\nWorking from local directory"
+    SRCDIR=.
 else
 	echo -e "\nOETMP: $OETMP"
 
@@ -17,36 +18,21 @@ else
 		exit 1
 	fi
 
-	cd ${OETMP}/deploy/images/${MACHINE}
+	SRCDIR=${OETMP}/deploy/images/${MACHINE}
 fi 
 
-if [ ! -f MLO-${MACHINE} ]; then
-	echo -e "File not found: MLO-${MACHINE}\n"
- 
-	if [ ! -z "$OETMP" ]; then
-		cd $OLDPWD
-	fi
-
+if [ ! -f ${SRCDIR}/MLO-${MACHINE} ]; then
+	echo -e "File not found: ${SRCDIR}/MLO-${MACHINE}\n"
 	exit 1
 fi
 
-if [ ! -f u-boot-${MACHINE}.img ]; then
-	echo -e "File not found: u-boot-${MACHINE}.img\n"
- 
-	if [ ! -z "$OETMP" ]; then
-		cd $OLDPWD
-	fi
-
+if [ ! -f ${SRCDIR}/u-boot-${MACHINE}.img ]; then
+	echo -e "File not found: ${SRCDIR}/u-boot-${MACHINE}.img\n"
 	exit 1
 fi
 
-if [ ! -f uImage-${MACHINE}.bin ]; then
-	echo -e "File not found: uImage-${MACHINE}.bin\n"
- 
-	if [ ! -z "$OETMP" ]; then
-		cd $OLDPWD
-	fi
-
+if [ ! -f ${SRCDIR}/uImage-${MACHINE}.bin ]; then
+	echo -e "File not found: ${SRCDIR}/uImage-${MACHINE}.bin\n"
 	exit 1
 fi
 
@@ -60,31 +46,28 @@ if [ -b $DEV ]; then
 	sudo mount ${DEV} /media/card
 
 	echo "Copying MLO"
-	sudo cp MLO-${MACHINE} /media/card/MLO
+	sudo cp ${SRCDIR}/MLO-${MACHINE} /media/card/MLO
+
 	echo "Copying u-boot"
-	sudo cp u-boot-${MACHINE}.img /media/card/u-boot.img
+	sudo cp ${SRCDIR}/u-boot-${MACHINE}.img /media/card/u-boot.img
 
-	if [ -f boot.scr ]; then
+	if [ -f ${SRCDIR}/boot.scr ]; then
 		echo "Copying boot.scr"
-		sudo cp boot.scr /media/card/boot.scr
+		sudo cp ${SRCDIR}/boot.scr /media/card/boot.scr
 
-		if [ -f boot.cmd ]; then
+		if [ -f ${SRCDIR}/boot.cmd ]; then
 			echo "Copying boot.cmd"
-			sudo cp boot.cmd /media/card/boot.cmd
+			sudo cp ${SRCDIR}/boot.cmd /media/card/boot.cmd
 		fi
 	fi
 
 	echo "Copying uImage"
-	sudo cp uImage-${MACHINE}.bin /media/card/uImage
+	sudo cp ${SRCDIR}/uImage-${MACHINE}.bin /media/card/uImage
 
 	echo "Unmounting ${DEV}"
 	sudo umount ${DEV}
 else
 	echo -e "\nBlock device not found: $DEV\n"
-fi
-
-if [ ! -z "$OETMP" ]; then
-	cd $OLDPWD
 fi
 
 echo "Done"
