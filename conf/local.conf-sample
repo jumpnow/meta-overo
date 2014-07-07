@@ -1,5 +1,5 @@
 # Local configuration for meta-duovero images
-# Yocto Project 1.5.1 Poky distribution 10.0.1, [dora] branch
+# Yocto Project 1.5.2 Poky distribution 10.0.2, [dora] branch
 # This is a sysvinit system
 
 LICENSE_FLAGS_WHITELIST = "commercial"
