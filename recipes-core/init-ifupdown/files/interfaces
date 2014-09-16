@@ -12,18 +12,28 @@ iface eth0 inet dhcp
 #	netmask 255.255.255.0
 #	gateway 192.168.10.1
 
-### wireless, dhcp
+### wireless, dhcp - sd8686 chipset
 #auto wlan0
 #iface wlan0 inet dhcp
 #     pre-up wpa_supplicant -Dwext -iwlan0 -c/etc/wpa_supplicant.conf -B
 #     down killall wpa_supplicant
 
-### wireless, static
+### wireless, static - sd8686 chipset
 #auto wlan0
 #iface wlan0 inet static 
 #     pre-up wpa_supplicant -Dwext -iwlan0 -c/etc/wpa_supplicant.conf -B
 #     address 192.168.10.33
 #     netmask 255.255.255.0
 #     gateway 192.168.10.1
+#     down killall wpa_supplicant
+
+# For the new AirSTORM-P COM that uses the sd8787 wifi chip
+# You may have to tune the sleep time
+# Note that it's mlan0 instead of wlan0 
+# 
+# auto mlan0
+# iface mlan0 inet dhcp
+#     pre-up wpa_supplicant -Dwext -imlan0 -c/etc/wpa_supplicant.conf -B
+#     pre-up sleep 5
 #     down killall wpa_supplicant
 

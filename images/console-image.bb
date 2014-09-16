@@ -33,6 +33,7 @@ WIFI_SUPPORT = " \
     linux-firmware-rtl8192ce \
     linux-firmware-rtl8192cu \
     linux-firmware-sd8686 \
+    linux-firmware-sd8787 \
     linux-firmware-wl12xx \
     wpa-supplicant \
  "
@@ -60,7 +61,6 @@ DEV_SDK_INSTALL = " \
  "
 
 DEV_EXTRAS = " \
-    avahi-daemon \
     ntp \
     ntp-tickadj \
  "
