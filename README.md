@@ -8,7 +8,7 @@ This layer depends on:
         URI: git://git.openembedded.org/meta-openembedded
         branch: daisy
         revision: HEAD
-        commit: 7a35bc7 
+        commit: 662cf40 
 
         meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
 
