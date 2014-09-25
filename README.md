@@ -3,7 +3,7 @@ This layer depends on:
         URI: git://git.yoctoproject.org/poky.git
         branch: daisy
         revision: HEAD
-        commit: b2f045c 
+        commit: a4d8015 
 
         URI: git://git.openembedded.org/meta-openembedded
         branch: daisy
