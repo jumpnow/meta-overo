@@ -3,12 +3,12 @@ This layer depends on:
         URI: git://git.yoctoproject.org/poky.git
         branch: daisy
         revision: HEAD
-        commit: a4d8015 
+        commit: 7a12eda 
 
         URI: git://git.openembedded.org/meta-openembedded
         branch: daisy
         revision: HEAD
-        commit: 662cf40 
+        commit: 8e6f6e4 
 
         meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
 
