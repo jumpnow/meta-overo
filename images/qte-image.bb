@@ -10,6 +10,7 @@ QT_TOOLS = " \
     qt4-embedded \
     qt4-embedded-dev\
     qt4-embedded-plugin-mousedriver-tslib \
+    tstracker \
  "
 
 SYNTRO = " \
