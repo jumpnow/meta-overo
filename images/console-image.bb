@@ -9,7 +9,7 @@ inherit core-image
 
 CORE_OS = " \
     busybox-hwclock \
-    task-core-ssh-openssh openssh-keygen openssh-sftp-server \
+    openssh openssh-keygen openssh-sftp-server \
     term-prompt \
     tzdata \
  "
