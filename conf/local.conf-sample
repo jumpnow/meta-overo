@@ -1,5 +1,5 @@
-# Local configuration for meta-duovero images
-# Yocto Project 1.6.1 Poky distribution 11.0.1, [daisy] branch
+# Local configuration for meta-overo images
+# Yocto Project 1.7.0 Poky distribution 12.0.0, [dizzy] branch
 # This is a sysvinit system
 
 LICENSE_FLAGS_WHITELIST = "commercial"
@@ -13,10 +13,9 @@ DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio opengl"
 
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 
-BB_NUMBER_THREADS = "4"
-PARALLEL_MAKE = "-j 4"
+BB_NUMBER_THREADS = "6"
+PARALLEL_MAKE = "-j6"
 
-# firmware loading works better with this version of udev
 PREFERRED_PROVIDER_udev = "systemd"
 
 # the default, but be explicit 
@@ -24,16 +23,11 @@ VIRTUAL_RUNTIME_init_manager = "sysvinit"
 
 MACHINE = "overo"
 
-# Uncomment the following PREFERRED_VERSION line only if there is some reason
-# you need to run the 3.2 kernel on the Overo instead of the default 3.5.
-# One reason would be if you are writing a custom McBSP kernel driver.
-#PREFERRED_VERSION_linux-stable = "3.2"
-
 # DL_DIR = "/oe-sources"
 
 # SSTATE_DIR = "/oe7/sstate-cache"
 
-# TMPDIR = "/oe7/tmp-poky-daisy-build"
+# TMPDIR = "/oe7/tmp-poky-dizzy-build"
 
 DISTRO = "poky"
 
