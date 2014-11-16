@@ -3,7 +3,7 @@ This layer depends on:
         URI: git://git.yoctoproject.org/poky.git
         branch: dizzy
         revision: HEAD
-        commit: 58a629a 
+        commit: df87cb2 
 
         URI: git://git.openembedded.org/meta-openembedded
         branch: dizzy
