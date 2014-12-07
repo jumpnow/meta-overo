@@ -3,12 +3,12 @@ This layer depends on:
         URI: git://git.yoctoproject.org/poky.git
         branch: dizzy
         revision: HEAD
-        commit: df87cb2 
+        commit: 9e8bb32 
 
         URI: git://git.openembedded.org/meta-openembedded
         branch: dizzy
         revision: HEAD
-        commit: 9efaed9 
+        commit: 510b7a9 
 
         meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
 
