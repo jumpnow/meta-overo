@@ -1,5 +1,5 @@
 # Local configuration for meta-overo images
-# Yocto Project 1.7.0 Poky distribution 12.0.0, [dizzy] branch
+# Yocto Project 1.7.1 Poky distribution 12.0.1, [dizzy] branch
 # This is a sysvinit system
 
 LICENSE_FLAGS_WHITELIST = "commercial"
