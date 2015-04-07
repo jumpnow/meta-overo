@@ -13,13 +13,6 @@ QT_TOOLS = " \
     tstracker \
  "
 
-SYNTRO = " \
-    syntrocore \
-    syntrocore-dev \
-    syntrolcam \
-    syntrolcam-init \
- "
-
 TS_TOOLS = " \
     tslib-calibrate \
     tslib-conf \
@@ -28,7 +21,6 @@ TS_TOOLS = " \
 
 IMAGE_INSTALL += " \
     ${QT_TOOLS} \
-    ${SYNTRO} \
     ${TS_TOOLS} \
     psplash \
  "
