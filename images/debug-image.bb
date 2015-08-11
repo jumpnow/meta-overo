@@ -8,32 +8,9 @@ IMAGE_LINGUAS = "en-us"
 inherit core-image
 
 CORE_OS = " \
-    busybox-hwclock \
-    task-core-ssh-openssh openssh-keygen \
+    openssh openssh-keygen openssh-sftp-server\
     term-prompt \
     tzdata \
- "
-
-DEV_SDK_INSTALL = " \
-    binutils \
-    binutils-symlinks \
-    coreutils \
-    cpp \
-    cpp-symlinks \
-    diffutils \
-    file \
-    gcc \
-    gcc-symlinks \
-    g++ \
-    g++-symlinks \
-    gettext \
-    git \
-    ldd \
-    libstdc++ \
-    libstdc++-dev \
-    libtool \
-    make \
-    pkgconfig \
  "
 
 EXTRA_TOOLS_INSTALL = " \
@@ -43,7 +20,6 @@ EXTRA_TOOLS_INSTALL = " \
     i2c-tools \
     iftop \
     iperf \
-    htop \
     less \
     procps \
     sysfsutils \
@@ -55,7 +31,6 @@ EXTRA_TOOLS_INSTALL = " \
 
 IMAGE_INSTALL += " \
     ${CORE_OS} \
-    ${DEV_SDK_INSTALL} \
     ${EXTRA_TOOLS_INSTALL} \
  "
 

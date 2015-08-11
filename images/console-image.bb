@@ -25,7 +25,6 @@ KERNEL_MODULES_OOT = " \
 
 KERNEL_EXTRA_INSTALL = " \
     kernel-modules \
-    ${KERNEL_MODULES_OOT} \
  "
 
 WIFI_SUPPORT = " \
@@ -49,6 +48,7 @@ DEV_SDK_INSTALL = " \
     file \
     gcc \
     gcc-symlinks \
+    gdb \
     g++ \
     g++-symlinks \
     gettext \
@@ -58,12 +58,19 @@ DEV_SDK_INSTALL = " \
     libstdc++-dev \
     libtool \
     make \
+    perl-modules \
     pkgconfig \
  "
 
 DEV_EXTRAS = " \
     ntp \
     ntp-tickadj \
+ "
+
+PYTHON_SUPPORT = " \
+    python-core \
+    python-fcntl \
+    python-subprocess \
  "
 
 EXTRA_TOOLS_INSTALL = " \
@@ -91,6 +98,7 @@ IMAGE_INSTALL += " \
     ${DEV_EXTRAS} \
     ${EXTRA_TOOLS_INSTALL} \
     ${KERNEL_EXTRA_INSTALL} \
+    ${PYTHON_SUPPORT} \
     ${WIFI_SUPPORT} \
  "
 
