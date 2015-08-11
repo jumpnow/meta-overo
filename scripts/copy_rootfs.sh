@@ -69,6 +69,14 @@ if [ -b $DEV ]; then
 		sudo cp ${SRCDIR}/wpa_supplicant.conf /media/card/etc/wpa_supplicant.conf
 	fi
 
+	if [ -f ${SRCDIR}/uEnv.txt ]; then
+		echo "Copying uEnv.txt to /media/card/boot"
+		sudo cp ${SRCDIR}/uEnv.txt /media/card/boot
+	elif [ -f ./uEnv.txt ]; then
+		echo "Copying ./uEnv.txt to /media/card/boot"
+		sudo cp ${SRCDIR}/uEnv.txt /media/card/boot
+	fi
+
 	echo "Unmounting $DEV"
 	sudo umount $DEV
 else
