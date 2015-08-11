@@ -1,14 +1,19 @@
 This layer depends on:
 
         URI: git://git.yoctoproject.org/poky.git
-        branch: dizzy
+        branch: fido 
         revision: HEAD
-        commit: ec75238 
+        commit: 08d3259 
 
         URI: git://git.openembedded.org/meta-openembedded
-        branch: dizzy
+        branch: fido 
         revision: HEAD
-        commit: 2ebb875 
+        commit: 10d3c8f 
+
+        URI: https://github.com/meta-qt5/meta-qt5
+        branch: fido
+        revision: HEAD
+        commit: fc02638
 
         meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
 
