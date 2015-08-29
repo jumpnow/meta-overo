@@ -1,0 +1,43 @@
+From d53f9ac83e6329e3d89c07b2d179b31d231ff24d Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Mon, 13 Jul 2015 13:24:33 -0400
+Subject: [PATCH] Load dtb from rootfs boot dir
+
+---
+ include/configs/omap3_overo.h | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/include/configs/omap3_overo.h b/include/configs/omap3_overo.h
+index 76bf3b6..10d2336 100644
+--- a/include/configs/omap3_overo.h
++++ b/include/configs/omap3_overo.h
+@@ -96,6 +96,7 @@
+ 	DEFAULT_LINUX_BOOT_ENV \
+ 	"bootdir=/boot\0" \
+ 	"bootfile=zImage\0" \
++	"bootpart=0:2\0" \
+ 	"usbtty=cdc_acm\0" \
+ 	"console=ttyO2,115200n8\0" \
+ 	"mpurate=auto\0" \
+@@ -128,15 +129,15 @@
+ 	"loadbootscript=load mmc ${mmcdev} ${loadaddr} boot.scr\0" \
+ 	"bootscript=echo Running boot script from mmc ...; " \
+ 		"source ${loadaddr}\0" \
+-	"loadbootenv=load mmc ${mmcdev} ${loadaddr} uEnv.txt\0" \
++	"loadbootenv=load mmc ${bootpart} ${loadaddr} ${bootdir}/uEnv.txt\0" \
+ 	"importbootenv=echo Importing environment from mmc ...; " \
+ 		"env import -t ${loadaddr} ${filesize}\0" \
+ 	"loaduimage=load mmc ${mmcdev} ${loadaddr} uImage\0" \
+ 	"mmcboot=echo Booting from mmc...; " \
+ 		"run mmcargs; " \
+ 		"bootm ${loadaddr}\0" \
+-	"loadzimage=load mmc ${mmcdev}:2 ${loadaddr} ${bootdir}/${bootfile}\0" \
+-	"loadfdt=load mmc ${mmcdev}:2 ${fdtaddr} ${bootdir}/${fdtfile}\0" \
++	"loadzimage=load mmc ${bootpart} ${loadaddr} ${bootdir}/${bootfile}\0" \
++	"loadfdt=load mmc ${bootpart} ${fdtaddr} ${bootdir}/${fdtfile}\0" \
+ 	"loadubizimage=ubifsload ${loadaddr} ${bootdir}/${bootfile}\0" \
+ 	"loadubifdt=ubifsload ${fdtaddr} ${bootdir}/${fdtfile}\0" \
+ 	"mmcbootfdt=echo Booting with DT from mmc ...; " \
+-- 
+2.1.4
+
