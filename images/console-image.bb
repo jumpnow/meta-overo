@@ -8,28 +8,16 @@ IMAGE_LINGUAS = "en-us"
 inherit core-image
 
 CORE_OS = " \
-    busybox-hwclock \
     openssh openssh-keygen openssh-sftp-server \
     term-prompt \
     tzdata \
  "
 
-# Custom kernel modules built out of tree
-KERNEL_MODULES_OOT = " \
-    omap3-pwm \
-    omap3-mux \
-    omap3-irqlat \
-    hrt-test \
-    udelay-test \
- "
-
 KERNEL_EXTRA_INSTALL = " \
     kernel-modules \
-    ${KERNEL_MODULES_OOT} \
  "
 
 WIFI_SUPPORT = " \
-    crda \
     iw \
     linux-firmware-rtl8192ce \
     linux-firmware-rtl8192cu \

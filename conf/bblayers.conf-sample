@@ -6,15 +6,15 @@ BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
 BBLAYERS ?= " \
-  ${HOME}/poky-dizzy/meta \
-  ${HOME}/poky-dizzy/meta-yocto \
-  ${HOME}/poky-dizzy/meta-openembedded/meta-oe \
-  ${HOME}/poky-dizzy/meta-openembedded/meta-networking \
-  ${HOME}/poky-dizzy/meta-openembedded/meta-python \
+  ${HOME}/poky-jethro/meta \
+  ${HOME}/poky-jethro/meta-yocto \
+  ${HOME}/poky-jethro/meta-openembedded/meta-oe \
+  ${HOME}/poky-jethro/meta-openembedded/meta-networking \
+  ${HOME}/poky-jethro/meta-openembedded/meta-python \
   ${HOME}/overo/meta-overo \
   "
 
 BBLAYERS_NON_REMOVABLE ?= " \
-  ${HOME}/poky-dizzy/meta \
-  ${HOME}/poky-dizzy/meta-yocto \
+  ${HOME}/poky-jethro/meta \
+  ${HOME}/poky-jethro/meta-yocto \
   "

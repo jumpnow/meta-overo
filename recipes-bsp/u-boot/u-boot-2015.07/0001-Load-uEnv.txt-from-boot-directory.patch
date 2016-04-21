@@ -1,0 +1,58 @@
+From d9b2685f21c2758bb632cd8bceb973d79cb30380 Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Wed, 24 Jun 2015 08:54:58 -0400
+Subject: [PATCH 1/2] Load uEnv.txt from /boot directory
+
+---
+ include/configs/ti_omap4_common.h | 18 ++----------------
+ 1 file changed, 2 insertions(+), 16 deletions(-)
+
+diff --git a/include/configs/ti_omap4_common.h b/include/configs/ti_omap4_common.h
+index 1c93aab..62e0464 100644
+--- a/include/configs/ti_omap4_common.h
++++ b/include/configs/ti_omap4_common.h
+@@ -88,7 +88,7 @@
+ #define CONFIG_EXTRA_ENV_SETTINGS \
+ 	DEFAULT_LINUX_BOOT_ENV \
+ 	"console=ttyO2,115200n8\0" \
+-	"fdtfile=undefined\0" \
++	"fdtfile=omap4-duovero-parlor.dtb\0" \
+ 	"bootpart=0:2\0" \
+ 	"bootdir=/boot\0" \
+ 	"bootfile=zImage\0" \
+@@ -104,7 +104,7 @@
+ 	"loadbootscript=load mmc ${mmcdev} ${loadaddr} boot.scr\0" \
+ 	"bootscript=echo Running bootscript from mmc${mmcdev} ...; " \
+ 		"source ${loadaddr}\0" \
+-	"loadbootenv=load mmc ${mmcdev} ${loadaddr} uEnv.txt\0" \
++	"loadbootenv=load mmc ${bootpart} ${loadaddr} ${bootdir}/uEnv.txt\0" \
+ 	"importbootenv=echo Importing environment from mmc${mmcdev} ...; " \
+ 		"env import -t ${loadaddr} ${filesize}\0" \
+ 	"loadimage=load mmc ${bootpart} ${loadaddr} ${bootdir}/${bootfile}\0" \
+@@ -115,23 +115,9 @@
+ 	"uimageboot=echo Booting from mmc${mmcdev} ...; " \
+ 		"run mmcargs; " \
+ 		"bootm ${loadaddr}\0" \
+-	"findfdt="\
+-		"if test $board_name = sdp4430; then " \
+-			"setenv fdtfile omap4-sdp.dtb; fi; " \
+-		"if test $board_name = panda; then " \
+-			"setenv fdtfile omap4-panda.dtb; fi;" \
+-		"if test $board_name = panda-a4; then " \
+-			"setenv fdtfile omap4-panda-a4.dtb; fi;" \
+-		"if test $board_name = panda-es; then " \
+-			"setenv fdtfile omap4-panda-es.dtb; fi;" \
+-		"if test $board_name = duovero; then " \
+-			"setenv fdtfile omap4-duovero-parlor.dtb; fi;" \
+-		"if test $fdtfile = undefined; then " \
+-			"echo WARNING: Could not determine device tree to use; fi; \0" \
+ 	"loadfdt=load mmc ${bootpart} ${fdtaddr} ${bootdir}/${fdtfile}\0" \
+ 
+ #define CONFIG_BOOTCOMMAND \
+-	"run findfdt; " \
+ 	"mmc dev ${mmcdev}; if mmc rescan; then " \
+ 		"echo SD/MMC found on device ${mmcdev};" \
+ 		"if run loadbootscript; then " \
+-- 
+2.1.4
+

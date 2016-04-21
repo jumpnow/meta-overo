@@ -1,0 +1,39 @@
+From a75f2fc440f6d14c39af408670c3d318df95f0eb Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Wed, 24 Jun 2015 08:57:46 -0400
+Subject: [PATCH 2/2] Remove boot.scr support. uEnv.txt is sufficient
+
+---
+ include/configs/ti_omap4_common.h | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
+
+diff --git a/include/configs/ti_omap4_common.h b/include/configs/ti_omap4_common.h
+index 62e0464..d5fdb35 100644
+--- a/include/configs/ti_omap4_common.h
++++ b/include/configs/ti_omap4_common.h
+@@ -120,16 +120,12 @@
+ #define CONFIG_BOOTCOMMAND \
+ 	"mmc dev ${mmcdev}; if mmc rescan; then " \
+ 		"echo SD/MMC found on device ${mmcdev};" \
+-		"if run loadbootscript; then " \
+-			"run bootscript; " \
+-		"else " \
+-			"if run loadbootenv; then " \
+-				"run importbootenv; " \
+-			"fi;" \
+-			"if test -n ${uenvcmd}; then " \
+-				"echo Running uenvcmd ...;" \
+-				"run uenvcmd;" \
+-			"fi;" \
++		"if run loadbootenv; then " \
++			"run importbootenv; " \
++		"fi;" \
++		"if test -n ${uenvcmd}; then " \
++			"echo Running uenvcmd ...;" \
++			"run uenvcmd;" \
+ 		"fi;" \
+ 		"if run loadimage; then " \
+ 			"run loadfdt;" \
+-- 
+2.1.4
+

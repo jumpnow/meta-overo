@@ -1,0 +1,33 @@
+/*
+ * Copyright (C) 2015 Jumpnow Technologies, LLC
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+&omap4_pmx_core {
+	mcspi4_pins: pinmux_spi4_pins {
+		pinctrl-single,pins = <
+			OMAP4_IOPAD(0x154, PIN_INPUT_PULLUP | MUX_MODE0)	/* mcspi4_clk, J9.29 */
+			OMAP4_IOPAD(0x158, PIN_INPUT_PULLUP | MUX_MODE0)	/* mcspi4_somi, J9.25 */
+			OMAP4_IOPAD(0x156, PIN_OUTPUT_PULLUP | MUX_MODE0)	/* mcspi4_simo, J9.27 */
+			OMAP4_IOPAD(0x15a, PIN_OUTPUT_PULLUP | MUX_MODE0)	/* mcspi4_cs0, J9.31 */
+		>;
+	};
+};
+
+&mcspi4 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&mcspi4_pins>;
+
+	spidev4_0: spidev4@0 {
+		compatible = "generic,spi";
+		reg = <0>;
+		spi-max-frequency = <12000000>;
+		/* spi-cpha; sets CPHA=1, default is CPHA=0 */
+		/* spi-cpol; sets CPOL=1, default is CPOL=0 */
+		/* spi-cs-high; default is spi cs low */
+	};
+};

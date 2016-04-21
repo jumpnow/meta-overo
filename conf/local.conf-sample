@@ -1,5 +1,5 @@
 # Local configuration for meta-overo images
-# Yocto Project 1.7.1 Poky distribution 12.0.1, [dizzy] branch
+# Yocto Project 2.0.1 Poky distribution [jethro] branch
 # This is a sysvinit system
 
 LICENSE_FLAGS_WHITELIST = "commercial"
@@ -7,34 +7,33 @@ LICENSE_FLAGS_WHITELIST = "commercial"
 # Important to override DISTRO_FEATURES or by default x11 and all its dependencies
 # will get built whether or not you use it in an image.
 DISTRO_FEATURES = "ext2 systemd usbhost ${DISTRO_FEATURES_LIBC}"
-
-# remove opengl so opencv builds cleanly, remove pulseaudio since it pulls in x11
+# remove opengl so opencv builds cleanly, remove pulseaudio since it brings in x11
 DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio opengl"
 
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 
-BB_NUMBER_THREADS = "6"
-PARALLEL_MAKE = "-j6"
-
 PREFERRED_PROVIDER_udev = "systemd"
 
-# the default, but be explicit 
 VIRTUAL_RUNTIME_init_manager = "sysvinit"
+
+PACKAGECONFIG_FB_pn-qtbase = "linuxfb"
+
+#PREFERRED_VERSION_linux-stable = "4.1"
 
 MACHINE = "overo"
 
-# DL_DIR = "/oe-sources"
+#DL_DIR = "/oe-sources"
 
-# SSTATE_DIR = "/oe7/sstate-cache"
+#SSTATE_DIR = "/oe5/overo/sstate-cache"
 
-# TMPDIR = "/oe7/tmp-poky-dizzy-build"
+#TMPDIR = "/oe5/overo/tmp-jethro"
 
 DISTRO = "poky"
 
 PACKAGE_CLASSES = "package_ipk"
 
 # i686 or x86_64
-# SDKMACHINE = "x86_64"
+SDKMACHINE = "x86_64"
 
 EXTRA_IMAGE_FEATURES = "debug-tweaks"
 
@@ -42,5 +41,6 @@ USER_CLASSES = "image-mklibs image-prelink"
 
 PATCHRESOLVE = "noop"
 
-CONF_VERSION = "1"
+RM_OLD_IMAGE = "1"
 
+CONF_VERSION = "1"

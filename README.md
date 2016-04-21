@@ -1,19 +1,18 @@
 This layer depends on:
 
         URI: git://git.yoctoproject.org/poky.git
-        branch: dizzy
+        branch: jethro 
         revision: HEAD
-        commit: ec75238 
+        commit: 6dba9ab
 
         URI: git://git.openembedded.org/meta-openembedded
-        branch: dizzy
+        branch: jethro 
         revision: HEAD
-        commit: 2ebb875 
+        commit: c305ac5
+
+        URI: https://github.com/meta-qt5/meta-qt5
+        branch: jethro
+        revision: HEAD
+        commit: 9bfcf79
 
         meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
-
-
-Instructions for using this layer can be found at [jumpnowtek.com][overo-yocto-build]
-
-[overo-yocto-build]: http://www.jumpnowtek.com/gumstix/overo/Overo-Systems-with-Yocto.html
-
