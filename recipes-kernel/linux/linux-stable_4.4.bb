@@ -8,9 +8,7 @@ RDEPENDS_kernel-base += "kernel-devicetree"
 
 KERNEL_DEVICETREE = " \
     omap3-overo-storm-tobi.dtb \
-    omap3-overo-storm-tobiduo.dtb \
-    omap3-overo-tobi.dts \
-    omap3-overo-tobiduo.dts \
+    omap3-overo-tobi.dtb \
  "
 
 LINUX_VERSION = "4.4"
@@ -27,5 +25,4 @@ SRCREV = "8c9aef03d3b540b6885e7534a885ea25f62dd9ed"
 SRC_URI = " \
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;branch=linux-4.4.y \
     file://defconfig \
-    file://0001-spidev-Add-a-generic-compatible-id.patch \
  "
