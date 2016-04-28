@@ -7,6 +7,11 @@ if [ "x${1}" = "x" ]; then
 	exit 0
 fi
 
+if [ ! -d /media/card ]; then
+	echo "Temporary mount point [/media/card] not found"
+	exit 1
+fi
+
 if [ "x${2}" = "x" ]; then
         IMAGE=console
 else
@@ -67,6 +72,14 @@ if [ -b $DEV ]; then
 	if [ -f ${SRCDIR}/wpa_supplicant.conf ]; then
 		echo "Writing wpa_supplicant.conf to /media/card/etc/"
 		sudo cp ${SRCDIR}/wpa_supplicant.conf /media/card/etc/wpa_supplicant.conf
+	fi
+
+	if [ -f ${SRCDIR}/uEnv.txt ]; then
+		echo "Copying ${SRCDIR}/uEnv.txt to /media/card/boot"
+		sudo cp ${SRCDIR}/uEnv.txt /media/card/boot
+	elif [ -f ./uEnv.txt ]; then
+		echo "Copying ./uEnv.txt to /media/card/boot"
+		sudo cp ./uEnv.txt /media/card/boot
 	fi
 
 	echo "Unmounting $DEV"

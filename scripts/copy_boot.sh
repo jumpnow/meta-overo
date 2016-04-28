@@ -7,6 +7,11 @@ if [ "x${1}" = "x" ]; then
 	exit 0
 fi
 
+if [ ! -d /media/card ]; then
+	echo "Temporary mount point [/media/card] not found"
+	exit 1
+fi
+
 if [ -z "$OETMP" ]; then
 	echo -e "\nWorking from local directory"
     SRCDIR=.
@@ -31,9 +36,17 @@ if [ ! -f ${SRCDIR}/u-boot-${MACHINE}.img ]; then
 	exit 1
 fi
 
-if [ ! -f ${SRCDIR}/uImage-${MACHINE}.bin ]; then
-	echo -e "File not found: ${SRCDIR}/uImage-${MACHINE}.bin\n"
-	exit 1
+if [ -f ${SRCDIR}/zImage-${MACHINE}.bin ]; then
+	# prefer zImage over uImage
+	# zImage is copied to /boot as part of rootfs
+	USING_UIMAGE=0
+else
+	if [ ! -f ${SRCDIR}/uImage-${MACHINE}.bin ]; then
+		echo -e "File not found: ${SRCDIR}/uImage-${MACHINE}.bin\n"
+		exit 1
+	fi
+
+	USING_UIMAGE=1
 fi
 
 DEV=/dev/${1}1
@@ -61,8 +74,10 @@ if [ -b $DEV ]; then
 		fi
 	fi
 
-	echo "Copying uImage"
-	sudo cp ${SRCDIR}/uImage-${MACHINE}.bin /media/card/uImage
+	if [ ${USING_UIMAGE} = 1 ]; then 
+		echo "Copying uImage"
+		sudo cp ${SRCDIR}/uImage-${MACHINE}.bin /media/card/uImage
+	fi
 
 	echo "Unmounting ${DEV}"
 	sudo umount ${DEV}
