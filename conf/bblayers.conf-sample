@@ -11,6 +11,7 @@ BBLAYERS ?= " \
   ${HOME}/poky-jethro/meta-openembedded/meta-oe \
   ${HOME}/poky-jethro/meta-openembedded/meta-networking \
   ${HOME}/poky-jethro/meta-openembedded/meta-python \
+  ${HOME}/poky-jethro/meta-qt5 \
   ${HOME}/overo/meta-overo \
   "
 

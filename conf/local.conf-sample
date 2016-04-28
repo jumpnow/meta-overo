@@ -18,8 +18,6 @@ VIRTUAL_RUNTIME_init_manager = "sysvinit"
 
 PACKAGECONFIG_FB_pn-qtbase = "linuxfb"
 
-#PREFERRED_VERSION_linux-stable = "4.1"
-
 MACHINE = "overo"
 
 #DL_DIR = "/oe-sources"
