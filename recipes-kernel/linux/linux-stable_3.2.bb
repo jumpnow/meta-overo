@@ -8,12 +8,12 @@ LINUX_VERSION_EXTENSION = "-jumpnow"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/linux-stable-3.2:"
 
-PR = "r0"
+PR = "r1"
 
 S = "${WORKDIR}/git"
 
-# v3.2.79
-SRCREV = "161802562b8b7f546a4deafeb73f31f0afc7bd1e"
+# v3.2.80
+SRCREV = "fad79858d2f2d8d18c3a1a4d1f4bb87a0c49b1d1"
 SRC_URI = " \
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;branch=linux-3.2.y \
     file://0001-mtd-nand-Eliminate-noisey-uncorrectable-error-messag.patch \
