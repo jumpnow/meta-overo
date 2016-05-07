@@ -4,11 +4,8 @@
 
 LICENSE_FLAGS_WHITELIST = "commercial"
 
-# Important to override DISTRO_FEATURES or by default x11 and all its dependencies
-# will get built whether or not you use it in an image.
 DISTRO_FEATURES = "ext2 usbhost ${DISTRO_FEATURES_LIBC}"
 
-# remove opengl so opencv builds cleanly, remove pulseaudio since it brings in x11
 DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio opengl"
 
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
@@ -17,8 +14,6 @@ PREFERRED_PROVIDER_udev = "eudev"
 VIRTUAL_RUNTIME_init_manager = "sysvinit"
 
 PREFERRED_VERSION_linux-stable = "4.4"
-
-PACKAGECONFIG_FB_pn-qtbase = "linuxfb"
 
 MACHINE = "overo"
 
