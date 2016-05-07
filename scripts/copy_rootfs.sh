@@ -51,8 +51,8 @@ fi
 DEV=/dev/${1}2
 
 if [ -b $DEV ]; then
-	echo "Formatting $DEV as ext3"
-	sudo mkfs.ext3 -L ROOT $DEV
+	echo "Formatting $DEV as ext4"
+	sudo mkfs.ext4 -L ROOT $DEV
 
 	echo "Mounting $DEV"
 	sudo mount $DEV /media/card
@@ -72,14 +72,6 @@ if [ -b $DEV ]; then
 	if [ -f ${SRCDIR}/wpa_supplicant.conf ]; then
 		echo "Writing wpa_supplicant.conf to /media/card/etc/"
 		sudo cp ${SRCDIR}/wpa_supplicant.conf /media/card/etc/wpa_supplicant.conf
-	fi
-
-	if [ -f ${SRCDIR}/uEnv.txt ]; then
-		echo "Copying ${SRCDIR}/uEnv.txt to /media/card/boot"
-		sudo cp ${SRCDIR}/uEnv.txt /media/card/boot
-	elif [ -f ./uEnv.txt ]; then
-		echo "Copying ./uEnv.txt to /media/card/boot"
-		sudo cp ./uEnv.txt /media/card/boot
 	fi
 
 	echo "Unmounting $DEV"

@@ -14,7 +14,7 @@ fi
 
 if [ -z "$OETMP" ]; then
 	echo -e "\nWorking from local directory"
-    SRCDIR=.
+	SRCDIR=.
 else
 	echo -e "\nOETMP: $OETMP"
 
@@ -64,14 +64,12 @@ if [ -b $DEV ]; then
 	echo "Copying u-boot"
 	sudo cp ${SRCDIR}/u-boot-${MACHINE}.img /media/card/u-boot.img
 
-	if [ -f ${SRCDIR}/boot.scr ]; then
-		echo "Copying boot.scr"
-		sudo cp ${SRCDIR}/boot.scr /media/card/boot.scr
-
-		if [ -f ${SRCDIR}/boot.cmd ]; then
-			echo "Copying boot.cmd"
-			sudo cp ${SRCDIR}/boot.cmd /media/card/boot.cmd
-		fi
+	if [ -f ${SRCDIR}/uEnv.txt ]; then
+		echo "Copying uEnv.txt"
+		sudo cp ${SRCDIR}/uEnv.txt /media/card/uEnv.txt
+	elif [ -f ./uEnv.txt ]; then
+		echo "Copying uEnv.txt"
+		sudo cp ./uEnv.txt /media/card/uEnv.txt
 	fi
 
 	if [ ${USING_UIMAGE} = 1 ]; then 
