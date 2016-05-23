@@ -1,0 +1,51 @@
+From 09e84f1c83543706177b79e6bbdbb58c9b7c3946 Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Mon, 23 May 2016 08:13:55 -0400
+Subject: [PATCH] Shrink MLO so it fits in SRAM
+
+Removed the following options from config:
+
+SPI
+USB
+DHCP
+EXT4_WRITE
+
+Removal of all of these is not necessary as only 63k needs
+to be reclaimed. I don't use any of these though so removing
+from my dev images.
+---
+ configs/omap3_overo_defconfig | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/configs/omap3_overo_defconfig b/configs/omap3_overo_defconfig
+index 6189296..d1d5cbf 100644
+--- a/configs/omap3_overo_defconfig
++++ b/configs/omap3_overo_defconfig
+@@ -10,20 +10,20 @@ CONFIG_CMD_BOOTZ=y
+ CONFIG_CMD_ASKENV=y
+ # CONFIG_CMD_FLASH is not set
+ CONFIG_CMD_MMC=y
+-CONFIG_CMD_SPI=y
++# CONFIG_CMD_SPI is not set
+ CONFIG_CMD_I2C=y
+-CONFIG_CMD_USB=y
++# CONFIG_CMD_USB is not set
+ # CONFIG_CMD_FPGA is not set
+ CONFIG_CMD_GPIO=y
+ # CONFIG_CMD_SETEXPR is not set
+-CONFIG_CMD_DHCP=y
++# CONFIG_CMD_DHCP is not set
+ # CONFIG_CMD_NFS is not set
+ CONFIG_CMD_MII=y
+ CONFIG_CMD_PING=y
+ CONFIG_CMD_CACHE=y
+ CONFIG_CMD_EXT2=y
+ CONFIG_CMD_EXT4=y
+-CONFIG_CMD_EXT4_WRITE=y
++# CONFIG_CMD_EXT4_WRITE is not set
+ CONFIG_CMD_FAT=y
+ CONFIG_CMD_FS_GENERIC=y
+ CONFIG_SYS_NS16550=y
+-- 
+2.7.4
+
