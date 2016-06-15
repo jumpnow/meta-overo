@@ -18,12 +18,11 @@ KERNEL_EXTRA_INSTALL = " \
  "
 
 WIFI_SUPPORT = " \
+    crda \
     iw \
-    linux-firmware-rtl8192ce \
-    linux-firmware-rtl8192cu \
     linux-firmware-sd8686 \
     linux-firmware-sd8787 \
-    linux-firmware-wl12xx \
+    linux-firmware-wl18xx \
     wpa-supplicant \
  "
 
@@ -65,7 +64,9 @@ EXTRA_TOOLS_INSTALL = " \
     htop \
     less \
     nano \
+    netcat \
     procps \
+    strongswan \
     sysfsutils \
     tcpdump \
     unzip \

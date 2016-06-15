@@ -1,0 +1,172 @@
+From f3f34ea3d5a5ff2bae9c2da0ad2d1b72c0b0c449 Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Wed, 15 Jun 2016 11:04:16 -0400
+Subject: [PATCH 4/4] dts: Add pwm examples
+
+---
+ arch/arm/boot/dts/omap3-overo-pwm10.dtsi         | 25 ++++++++++++++++++++++++
+ arch/arm/boot/dts/omap3-overo-pwm11.dtsi         | 25 ++++++++++++++++++++++++
+ arch/arm/boot/dts/omap3-overo-pwm8.dtsi          | 25 ++++++++++++++++++++++++
+ arch/arm/boot/dts/omap3-overo-pwm9.dtsi          | 25 ++++++++++++++++++++++++
+ arch/arm/boot/dts/omap3-overo-storm-tobi-pwm.dts | 21 ++++++++++++++++++++
+ 5 files changed, 121 insertions(+)
+ create mode 100644 arch/arm/boot/dts/omap3-overo-pwm10.dtsi
+ create mode 100644 arch/arm/boot/dts/omap3-overo-pwm11.dtsi
+ create mode 100644 arch/arm/boot/dts/omap3-overo-pwm8.dtsi
+ create mode 100644 arch/arm/boot/dts/omap3-overo-pwm9.dtsi
+ create mode 100644 arch/arm/boot/dts/omap3-overo-storm-tobi-pwm.dts
+
+diff --git a/arch/arm/boot/dts/omap3-overo-pwm10.dtsi b/arch/arm/boot/dts/omap3-overo-pwm10.dtsi
+new file mode 100644
+index 0000000..3fa8809
+--- /dev/null
++++ b/arch/arm/boot/dts/omap3-overo-pwm10.dtsi
+@@ -0,0 +1,25 @@
++/*
++ * Copyright (C) 2016 Jumpnow Technologies, LLC 
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&omap3_pmx_core {
++	pwm10_pin: pinmux_pwm10_pin {
++		pinctrl-single,pins = <
++			OMAP3_CORE1_IOPAD(0x2176, PIN_OUTPUT | MUX_MODE2)       /* uart2_rts.gpt10_pwm_evt */
++		>;
++	};
++};
++
++/ {
++	pwm10: dmtimer-pwm@10 {
++		compatible = "ti,omap-dmtimer-pwm";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pwm10_pin>;
++		ti,timers = <&timer10>;
++		#pwm-cells = <3>;
++	};
++};
+diff --git a/arch/arm/boot/dts/omap3-overo-pwm11.dtsi b/arch/arm/boot/dts/omap3-overo-pwm11.dtsi
+new file mode 100644
+index 0000000..0401479
+--- /dev/null
++++ b/arch/arm/boot/dts/omap3-overo-pwm11.dtsi
+@@ -0,0 +1,25 @@
++/*
++ * Copyright (C) 2016 Jumpnow Technologies, LLC 
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&omap3_pmx_core {
++	pwm11_pin: pinmux_pwm11_pin {
++		pinctrl-single,pins = <
++			OMAP3_CORE1_IOPAD(0x2178, PIN_OUTPUT | MUX_MODE2)       /* uart2_tx.gpt11_pwm_evt */
++		>;
++	};
++};
++
++/ {
++	pwm11: dmtimer-pwm@11 {
++		compatible = "ti,omap-dmtimer-pwm";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pwm11_pin>;
++		ti,timers = <&timer11>;
++		#pwm-cells = <3>;
++	};
++};
+diff --git a/arch/arm/boot/dts/omap3-overo-pwm8.dtsi b/arch/arm/boot/dts/omap3-overo-pwm8.dtsi
+new file mode 100644
+index 0000000..947d06b
+--- /dev/null
++++ b/arch/arm/boot/dts/omap3-overo-pwm8.dtsi
+@@ -0,0 +1,25 @@
++/*
++ * Copyright (C) 2016 Jumpnow Technologies, LLC 
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&omap3_pmx_core {
++	pwm8_pin: pinmux_pwm8_pin {
++		pinctrl-single,pins = <
++			OMAP3_CORE1_IOPAD(0x217a, PIN_OUTPUT | MUX_MODE2)       /* uart2_rx.gpt8_pwm_evt */
++		>;
++	};
++};
++
++/ {
++	pwm8: dmtimer-pwm@8 {
++		compatible = "ti,omap-dmtimer-pwm";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pwm8_pin>;
++		ti,timers = <&timer8>;
++		#pwm-cells = <3>;
++	};
++};
+diff --git a/arch/arm/boot/dts/omap3-overo-pwm9.dtsi b/arch/arm/boot/dts/omap3-overo-pwm9.dtsi
+new file mode 100644
+index 0000000..d935a2c
+--- /dev/null
++++ b/arch/arm/boot/dts/omap3-overo-pwm9.dtsi
+@@ -0,0 +1,25 @@
++/*
++ * Copyright (C) 2016 Jumpnow Technologies, LLC 
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&omap3_pmx_core {
++	pwm9_pin: pinmux_pwm9_pin {
++		pinctrl-single,pins = <
++			OMAP3_CORE1_IOPAD(0x2174, PIN_OUTPUT | MUX_MODE2)       /* uart2_cts.gpt9_pwm_evt */
++		>;
++	};
++};
++
++/ {
++	pwm9: dmtimer-pwm@9 {
++		compatible = "ti,omap-dmtimer-pwm";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pwm9_pin>;
++		ti,timers = <&timer9>;
++		#pwm-cells = <3>;
++	};
++};
+diff --git a/arch/arm/boot/dts/omap3-overo-storm-tobi-pwm.dts b/arch/arm/boot/dts/omap3-overo-storm-tobi-pwm.dts
+new file mode 100644
+index 0000000..d305d90
+--- /dev/null
++++ b/arch/arm/boot/dts/omap3-overo-storm-tobi-pwm.dts
+@@ -0,0 +1,21 @@
++/*
++ * Copyright (C) 2016 Jumpnow Technologies, LLC 
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/dts-v1/;
++
++#include "omap3-overo-storm.dtsi"
++#include "omap3-overo-tobi-common.dtsi"
++#include "omap3-overo-pwm8.dtsi"
++#include "omap3-overo-pwm9.dtsi"
++#include "omap3-overo-pwm10.dtsi"
++#include "omap3-overo-pwm11.dtsi"
++
++/ {
++	model = "OMAP36xx/AM37xx/DM37xx Gumstix Overo on Tobi";
++	compatible = "gumstix,omap3-overo-tobi", "gumstix,omap3-overo", "ti,omap36xx", "ti,omap3";
++};
+-- 
+2.7.4
+
