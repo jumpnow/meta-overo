@@ -1,5 +1,8 @@
 #!/bin/bash
-#
+
+function ver() {
+        printf "%03d%03d%03d" $(echo "$1" | tr '.' ' ')
+}
 
 if [ -n "$1" ]; then
 	DRIVE=/dev/$1
@@ -38,26 +41,33 @@ if [ "$SIZE" -lt 1800000000 ]; then
 	exit 1
 fi
 
-CYLINDERS=`echo $SIZE/255/63/512 | bc`
+# new versions of sfdisk don't use rotating disk params
+sfdisk_ver=`sfdisk --version | awk '{ print $4 }'`
 
-echo CYLINDERS – $CYLINDERS
+if [ $(ver $sfdisk_ver) -lt $(ver 2.26.2) ]; then
+        CYLINDERS=`echo $SIZE/255/63/512 | bc`
+        echo "CYLINDERS – $CYLINDERS"
+        SFDISK_CMD="sfdisk --force -D -uS -H255 -S63 -C ${CYLINDERS}"
+else
+        SFDISK_CMD="sfdisk"
+fi
 
 echo -e "\nOkay, here we go ...\n"
 
 echo -e "=== Zeroing the MBR ===\n"
 dd if=/dev/zero of=$DRIVE bs=1024 count=1024
 
-# Standard 2 partitions
+# Minimum required 2 partitions
 # Sectors are 512 bytes
-# 0-127: 64KB, no partition, MBR then empty
-# 128-131071: ~64 MB, dos partition, MLO, u-boot, kernel
-# 131072-end: 2GB+, linux partition, root filesystem
+# 0     : 64KB, no partition, MBR then empty
+# 128   : 64 MB, FAT partition, bootloader
+# 131200: 2GB+, linux partition, root filesystem
 
 echo -e "\n=== Creating 2 partitions ===\n"
 {
-echo 128,130944,0x0C,*
-echo 131072,,,-
-} | sfdisk --force -D -uS -H 255 -S 63 -C $CYLINDERS $DRIVE
+echo 128,131072,0x0C,*
+echo 131200,+,0x83,-
+} | $SFDISK_CMD $DRIVE
 
 
 sleep 1
