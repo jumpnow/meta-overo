@@ -1,7 +1,8 @@
 # You can either hardcode your fdtfile or use some sort of test.
 # If you do not provide an uEnv.txt, then u-boot tries to determine
 # the correct dtb based on on the board eeprom. 
-bootpart=0:2
+rootpart=0:2
+flagpart=0:5
 bootdir=/boot
 bootfile=zImage
 console=ttyO2,115200n8
@@ -12,6 +13,33 @@ mmcroot=/dev/mmcblk0p2 ro
 mmcrootfstype=ext4 rootwait
 optargs=consoleblank=0
 mmcargs=setenv bootargs console=${console} ${optargs} root=${mmcroot} rootfstype=${mmcrootfstype}
-loadfdt=load mmc ${bootpart} ${fdtaddr} ${bootdir}/${fdtfile}
-loadimage=load mmc ${bootpart} ${loadaddr} ${bootdir}/${bootfile}
-uenvcmd=if run loadfdt; then echo Loaded ${fdtfile}; if run loadimage; then run mmcargs; bootz ${loadaddr} - ${fdtaddr}; fi; fi;
+loadfdt=load mmc ${rootpart} ${fdtaddr} ${bootdir}/${fdtfile}
+loadimage=load mmc ${rootpart} ${loadaddr} ${bootdir}/${bootfile}
+boot_three=setenv rootpart 0:3; setenv mmcroot /dev/mmcblk0p3 ro
+findroot=\
+    if test -e mmc ${flagpart} three; then \
+        if test -e mmc ${flagpart} three_ok; then \
+            run boot_three; \
+        elif test ! -e mmc ${flagpart} three_tried; then \
+            fatwrite mmc ${flagpart} ${loadaddr} three_tried 4; \
+            run boot_three; \
+        fi; \
+    elif test -e mmc ${flagpart} two; then \
+        if test ! -e mmc ${flagpart} two_ok; then \
+            if test -e mmc ${flagpart} two_tried; then \
+                run boot_three; \
+            else \
+                fatwrite mmc ${flagpart} ${loadaddr} two_tried 4; \
+            fi; \
+        fi; \
+    fi;
+uenvcmd=\
+    run findroot; \
+    echo Using root partition ${rootpart}; \
+    if run loadfdt; then \
+        echo Loaded ${fdtfile}; \
+        if run loadimage; then \
+            run mmcargs; \
+            bootz ${loadaddr} - ${fdtaddr}; \
+        fi; \
+    fi;
