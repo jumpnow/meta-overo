@@ -8,8 +8,6 @@ case "${CHECK_BOOT_FLAGS_PARTITION}" in
 		;;
 esac
 
-if [ ! -x /usr/bin/manage_boot_flag_partition.sh ]; then
-    exit 0
+if [ -x /usr/bin/bootflag.sh ]; then
+	/usr/bin/bootflag.sh
 fi
-
-/usr/bin/manage_boot_flag_partition.sh

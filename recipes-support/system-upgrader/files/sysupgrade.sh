@@ -234,8 +234,16 @@ echo "OK"
 
 
 if [ "${NEW_ROOT}" == "/dev/mmcblk0p3" ]; then
-	echo -e -n "Removing old flag files for partition three: "
+	echo -e -n "Removing old flag files for partition three : "
 	rm -f ${MOUNT_DIR}/three*
+
+	if [ $? -ne 0 ]; then
+		echo "FAIL"
+		echo "Failed to remove old flag files"
+		exit 1
+	fi
+
+	echo "OK"
 
 	echo -e -n "Creating file ${MOUNT_DIR}/three : "
 	touch ${MOUNT_DIR}/three
@@ -264,9 +272,24 @@ if [ "${NEW_ROOT}" == "/dev/mmcblk0p3" ]; then
 	echo -e -n "Removing remaining flag files for partition two : "
 	rm -f ${MOUNT_DIR}/two_*
 
+	if [ $? -ne 0 ]; then
+		echo "FAIL"
+		echo "Failed to remove remaining flag files"
+		exit 1
+	fi
+
+	echo "OK"
 else
 	echo -e -n "Removing old flag files for partition two : "
 	rm -f ${MOUNT_DIR}/two*
+
+	if [ $? -ne 0 ]; then
+		echo "FAIL"
+		echo "Failed to remove old flag files"
+		exit 1
+	fi
+
+	echo "OK"
 
 	echo -e -n "Creating file ${MOUNT_DIR}/two : "
 	touch ${MOUNT_DIR}/two
@@ -294,6 +317,14 @@ else
 
 	echo -e -n "Removing remaining flag files for partition three : "
 	rm -f ${MOUNT_DIR}/three_*
+
+	if [ $? -ne 0 ]; then
+		echo "FAIL"
+		echo "Failed to remove remaining flag files"
+		exit 1
+	fi
+
+	echo "OK"
 fi
 
 echo -e -n "Unmounting ${FLAGS_PARTITION} from ${MOUNT_DIR} : "
@@ -308,5 +339,5 @@ fi
 
 echo "OK"
 
-echo -e "\nA new system was installed onto : ${NEW_ROOT}"
+echo -e "\nA new system was installed onto ${NEW_ROOT}"
 echo -e "\nReboot to use the new system."
