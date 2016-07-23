@@ -1,0 +1,183 @@
+From a3b58d28e13848de536e1775dbd2279df6010a0f Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Sun, 17 Jul 2016 13:15:11 -0400
+Subject: [PATCH] Combo patch to support old Overo COMs (MMC only)
+
+---
+ board/overo/spl.c                 |  2 +-
+ configs/omap3_overo_defconfig     | 12 ++++++------
+ include/config_distro_defaults.h  |  8 ++++++--
+ include/configs/omap3_overo.h     | 11 ++++++++++-
+ include/configs/ti_armv7_common.h |  5 +++--
+ 5 files changed, 26 insertions(+), 12 deletions(-)
+
+diff --git a/board/overo/spl.c b/board/overo/spl.c
+index 5af780e..63daf68 100644
+--- a/board/overo/spl.c
++++ b/board/overo/spl.c
+@@ -27,7 +27,7 @@ void get_board_mem_timings(struct board_sdrc_timings *timings)
+ 	timings->mr = MICRON_V_MR_165;
+ 	switch (get_board_revision()) {
+ 	case REVISION_0: /* Micron 1286MB/256MB, 1/2 banks of 128MB */
+-		timings->mcfg = MICRON_V_MCFG_165(256 << 20);
++		timings->mcfg = MICRON_V_MCFG_165(128 << 20);
+ 		timings->ctrla = MICRON_V_ACTIMA_165;
+ 		timings->ctrlb = MICRON_V_ACTIMB_165;
+ 		timings->rfr_ctrl = SDP_3430_SDRC_RFR_CTRL_165MHz;
+diff --git a/configs/omap3_overo_defconfig b/configs/omap3_overo_defconfig
+index 6189296..5c736c2 100644
+--- a/configs/omap3_overo_defconfig
++++ b/configs/omap3_overo_defconfig
+@@ -10,20 +10,20 @@ CONFIG_CMD_BOOTZ=y
+ CONFIG_CMD_ASKENV=y
+ # CONFIG_CMD_FLASH is not set
+ CONFIG_CMD_MMC=y
+-CONFIG_CMD_SPI=y
++# CONFIG_CMD_SPI is not set
+ CONFIG_CMD_I2C=y
+-CONFIG_CMD_USB=y
++# CONFIG_CMD_USB is not set
+ # CONFIG_CMD_FPGA is not set
+ CONFIG_CMD_GPIO=y
+ # CONFIG_CMD_SETEXPR is not set
+-CONFIG_CMD_DHCP=y
++# CONFIG_CMD_DHCP is not set
+ # CONFIG_CMD_NFS is not set
+ CONFIG_CMD_MII=y
+-CONFIG_CMD_PING=y
++# CONFIG_CMD_PING is not set
+ CONFIG_CMD_CACHE=y
+-CONFIG_CMD_EXT2=y
++# CONFIG_CMD_EXT2 is not set
+ CONFIG_CMD_EXT4=y
+-CONFIG_CMD_EXT4_WRITE=y
++# CONFIG_CMD_EXT4_WRITE is not set
+ CONFIG_CMD_FAT=y
+ CONFIG_CMD_FS_GENERIC=y
+ CONFIG_SYS_NS16550=y
+diff --git a/include/config_distro_defaults.h b/include/config_distro_defaults.h
+index 9244680..5d258d7 100644
+--- a/include/config_distro_defaults.h
++++ b/include/config_distro_defaults.h
+@@ -12,7 +12,7 @@
+  * features required by distros to support boards in a standardised and
+  * consistent manner.
+  */
+-
++/*
+ #define CONFIG_BOOTP_BOOTPATH
+ #define CONFIG_BOOTP_DNS
+ #define CONFIG_BOOTP_GATEWAY
+@@ -24,15 +24,19 @@
+ #define CONFIG_CMD_BOOTI
+ #endif
+ #define CONFIG_CMD_PXE
+-
++*/
+ #define CONFIG_CMDLINE_EDITING
++/*
+ #define CONFIG_AUTO_COMPLETE
+ #define CONFIG_SYS_LONGHELP
++*/
+ #define CONFIG_MENU
+ #define CONFIG_DOS_PARTITION
++/*
+ #define CONFIG_EFI_PARTITION
+ #define CONFIG_ISO_PARTITION
+ #define CONFIG_SUPPORT_RAW_INITRD
++*/
+ #define CONFIG_ENV_VARS_UBOOT_CONFIG
+ 
+ #endif	/* _CONFIG_CMD_DISTRO_DEFAULTS_H */
+diff --git a/include/configs/omap3_overo.h b/include/configs/omap3_overo.h
+index fbd0c2a..8f1f69a 100644
+--- a/include/configs/omap3_overo.h
++++ b/include/configs/omap3_overo.h
+@@ -8,7 +8,9 @@
+ #define __CONFIG_H
+ 
+ #define CONFIG_NR_DRAM_BANKS	2	/* CS1 may or may not be populated */
+-#define CONFIG_NAND
++#undef CONFIG_NAND
++#undef CONFIG_CMD_NET
++#define CONFIG_ENV_IS_NOWHERE
+ 
+ #include <configs/ti_omap3_common.h>
+ #undef CONFIG_SPL_MAX_SIZE
+@@ -42,11 +44,13 @@
+ #define CONFIG_TWL4030_LED
+ 
+ /* USB EHCI */
++#ifdef CONFIG_CMD_USB
+ #define CONFIG_USB_EHCI
+ #define CONFIG_USB_EHCI_OMAP
+ #define CONFIG_USB_STORAGE
+ #define CONFIG_OMAP_EHCI_PHY1_RESET_GPIO	183
+ #define CONFIG_SYS_USB_EHCI_MAX_ROOT_PORTS	3
++#endif
+ 
+ /* Initialize GPIOs by default */
+ #define CONFIG_OMAP3_GPIO_2	/* GPIO32..63 is in GPIO Bank 2 */
+@@ -85,8 +89,10 @@
+ #define MTDPARTS_DEFAULT
+ #endif /* CONFIG_NAND */
+ 
++#ifdef CONFIG_NAND
+ /* Board NAND Info. */
+ #define CONFIG_SYS_NAND_ADDR		NAND_BASE	/* physical address */
++#endif
+ 							/* to access nand */
+ /* Environment information */
+ #define CONFIG_EXTRA_ENV_SETTINGS \
+@@ -193,6 +199,7 @@
+ #define CONFIG_SYS_FLASH_BASE		NAND_BASE
+ #endif
+ 
++#ifdef CONFIG_NAND
+ /* Monitor at start of flash */
+ #define CONFIG_SYS_MONITOR_BASE		CONFIG_SYS_FLASH_BASE
+ #define CONFIG_SYS_ONENAND_BASE		ONENAND_MAP
+@@ -204,6 +211,7 @@
+ #define CONFIG_SYS_ENV_SECT_SIZE	(128 << 10)	/* 128 KiB */
+ #define CONFIG_ENV_OFFSET		SMNAND_ENV_OFFSET
+ #define CONFIG_ENV_ADDR			SMNAND_ENV_OFFSET
++#endif
+ 
+ /* Configure SMSC9211 ethernet */
+ #if defined(CONFIG_CMD_NET)
+@@ -238,6 +246,7 @@
+ #define CONFIG_SYS_NAND_U_BOOT_START	CONFIG_SYS_TEXT_BASE
+ #define CONFIG_SYS_NAND_U_BOOT_OFFS	0x80000
+ /* NAND: SPL falcon mode configs */
++#undef CONFIG_SPL_OS_BOOT
+ #ifdef CONFIG_SPL_OS_BOOT
+ #define CONFIG_CMD_SPL_NAND_OFS		0x240000
+ #define CONFIG_SYS_NAND_SPL_KERNEL_OFFS	0x280000
+diff --git a/include/configs/ti_armv7_common.h b/include/configs/ti_armv7_common.h
+index ba7cf15..4e10550 100644
+--- a/include/configs/ti_armv7_common.h
++++ b/include/configs/ti_armv7_common.h
+@@ -49,6 +49,7 @@
+ 	"loadaddr=0x82000000\0" \
+ 	"kernel_addr_r=0x82000000\0" \
+ 	"fdtaddr=0x88000000\0" \
++	"fdt_high=0x8f000000\0" \
+ 	"fdt_addr_r=0x88000000\0" \
+ 	"rdaddr=0x88080000\0" \
+ 	"ramdisk_addr_r=0x88080000\0" \
+@@ -244,10 +245,10 @@
+ #define CONFIG_SPL_LIBDISK_SUPPORT
+ #define CONFIG_SPL_MMC_SUPPORT
+ #define CONFIG_SPL_FAT_SUPPORT
+-#define CONFIG_SPL_EXT_SUPPORT
++/* #define CONFIG_SPL_EXT_SUPPORT */
+ #endif
+ 
+-#define CONFIG_SYS_THUMB_BUILD
++/* #define CONFIG_SYS_THUMB_BUILD */
+ 
+ /* General parts of the framework, required. */
+ #define CONFIG_SPL_I2C_SUPPORT
+-- 
+2.7.4
+
