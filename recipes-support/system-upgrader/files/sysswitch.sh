@@ -101,7 +101,7 @@ echo -e -n "Mounting new rootfs at ${ROOTFS_MOUNT_DIR} : "
 
 mount ${NEW_ROOT} ${ROOTFS_MOUNT_DIR}
 
-if [ $? -eq 1 ]; then
+if [ $? -ne 0 ]; then
 	echo "FAIL"
 	echo "Failed to mount the new rootfs"
 	exit 1
