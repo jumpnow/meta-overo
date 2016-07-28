@@ -49,6 +49,7 @@ DEV_SDK_INSTALL = " \
  "
 
 DEV_EXTRAS = " \
+    bluez4 \
     ntp \
     ntp-tickadj \
  "
@@ -63,10 +64,9 @@ EXTRA_TOOLS_INSTALL = " \
     iperf \
     htop \
     less \
-    nano \
+    memtester \
     netcat \
     procps \
-    strongswan \
     sysfsutils \
     tcpdump \
     unzip \
