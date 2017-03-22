@@ -8,11 +8,11 @@ bootfile=zImage
 console=ttyO2,115200n8
 fdtaddr=0x88000000
 fdtfile=omap3-overo-storm-tobi.dtb
+fdt_high=0x8f000000
 loadaddr=0x82000000
 mmcroot=/dev/mmcblk0p2 ro
 mmcrootfstype=ext4 rootwait
-optargs=consoleblank=0
-mmcargs=setenv bootargs console=${console} ${optargs} root=${mmcroot} rootfstype=${mmcrootfstype}
+mmcargs=setenv bootargs console=${console} root=${mmcroot} rootfstype=${mmcrootfstype}
 loadfdt=load mmc ${rootpart} ${fdtaddr} ${bootdir}/${fdtfile}
 loadimage=load mmc ${rootpart} ${loadaddr} ${bootdir}/${bootfile}
 boot_three=setenv rootpart 0:3; setenv mmcroot /dev/mmcblk0p3 ro
@@ -34,7 +34,6 @@ findroot=\
         fi; \
     fi;
 uenvcmd=\
-    run findroot; \
     echo Using root partition ${rootpart}; \
     if run loadfdt; then \
         echo Loaded ${fdtfile}; \
