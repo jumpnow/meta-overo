@@ -1,0 +1,25 @@
+/*
+ * Copyright (C) 2016 Jumpnow Technologies, LLC 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+&omap3_pmx_core {
+	pwm11_pin: pinmux_pwm11_pin {
+		pinctrl-single,pins = <
+			OMAP3_CORE1_IOPAD(0x2178, PIN_OUTPUT | MUX_MODE2)       /* uart2_tx.gpt11_pwm_evt */
+		>;
+	};
+};
+
+/ {
+	pwm11: dmtimer-pwm@11 {
+		compatible = "ti,omap-dmtimer-pwm";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pwm11_pin>;
+		ti,timers = <&timer11>;
+		#pwm-cells = <3>;
+	};
+};

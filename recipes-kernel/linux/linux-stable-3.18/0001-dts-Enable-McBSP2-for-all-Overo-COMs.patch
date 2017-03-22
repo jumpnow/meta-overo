@@ -1,0 +1,36 @@
+From 9465ca09d28bf82f4cfc86101e84a8385b50c012 Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Wed, 15 Jun 2016 15:02:59 -0400
+Subject: [PATCH 1/5] dts: Enable McBSP2 for all Overo COMs
+
+---
+ arch/arm/boot/dts/omap3-overo-base.dtsi | 3 +++
+ arch/arm/boot/dts/omap3-overo.dtsi      | 4 ----
+ 2 files changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm/boot/dts/omap3-overo-base.dtsi b/arch/arm/boot/dts/omap3-overo-base.dtsi
+index d36bf02..b17e848 100644
+--- a/arch/arm/boot/dts/omap3-overo-base.dtsi
++++ b/arch/arm/boot/dts/omap3-overo-base.dtsi
+@@ -219,3 +219,6 @@
+ 	pinctrl-0 = <&uart2_pins>;
+ };
+ 
++&mcbsp2 {
++	status = "okay";
++};
+diff --git a/arch/arm/boot/dts/omap3-overo.dtsi b/arch/arm/boot/dts/omap3-overo.dtsi
+index 69ca7c4..932a02f 100644
+--- a/arch/arm/boot/dts/omap3-overo.dtsi
++++ b/arch/arm/boot/dts/omap3-overo.dtsi
+@@ -32,7 +32,3 @@
+ 		>;
+ 	};
+ };
+-
+-&mcbsp2 {
+-	status = "okay";
+-};
+-- 
+2.7.4
+

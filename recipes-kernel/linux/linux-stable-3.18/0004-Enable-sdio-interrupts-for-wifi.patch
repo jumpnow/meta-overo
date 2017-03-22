@@ -1,0 +1,33 @@
+From 199e28f42330cc059f1660d8c1443777c829f483 Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Wed, 15 Jun 2016 15:19:18 -0400
+Subject: [PATCH 4/5] Enable sdio interrupts for wifi
+
+---
+ arch/arm/boot/dts/omap3-overo-base.dtsi | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/omap3-overo-base.dtsi b/arch/arm/boot/dts/omap3-overo-base.dtsi
+index b2b6a0e..e0613bc 100644
+--- a/arch/arm/boot/dts/omap3-overo-base.dtsi
++++ b/arch/arm/boot/dts/omap3-overo-base.dtsi
+@@ -120,7 +120,7 @@
+ 			OMAP3_CORE1_IOPAD(0x2158, PIN_INPUT_PULLUP | MUX_MODE0)		/* sdmmc2_clk.sdmmc2_clk */
+ 			OMAP3_CORE1_IOPAD(0x215a, PIN_INPUT_PULLUP | MUX_MODE0)		/* sdmmc2_cmd.sdmmc2_cmd */
+ 			OMAP3_CORE1_IOPAD(0x215c, PIN_INPUT_PULLUP | MUX_MODE0)		/* sdmmc2_dat0.sdmmc2_dat0 */
+-			OMAP3_CORE1_IOPAD(0x215e, PIN_INPUT_PULLUP | MUX_MODE0)		/* sdmmc2_dat1.sdmmc2_dat1 */
++			OMAP3_CORE1_IOPAD(0x215e, PIN_INPUT_PULLUP | PIN_OFF_WAKEUPENABLE | MUX_MODE0)		/* sdmmc2_dat1.sdmmc2_dat1 */
+ 			OMAP3_CORE1_IOPAD(0x2160, PIN_INPUT_PULLUP | MUX_MODE0)		/* sdmmc2_dat2.sdmmc2_dat2 */
+ 			OMAP3_CORE1_IOPAD(0x2162, PIN_INPUT_PULLUP | MUX_MODE0)		/* sdmmc2_dat3.sdmmc2_dat3 */
+ 		>;
+@@ -192,6 +192,7 @@
+ 	vmmc-supply = <&w3cbw003c_wifi_nreset>;
+ 	bus-width = <4>;
+ 	cap-sdio-irq;
++	interrupts-extended = <&intc 86>, <&gpio5 5 GPIO_ACTIVE_HIGH>;	/* mmc2_dat1.gpio_133 */
+ 	non-removable;
+ 	ti,dual-volt;
+ };
+-- 
+2.7.4
+
