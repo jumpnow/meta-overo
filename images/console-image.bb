@@ -17,13 +17,11 @@ KERNEL_EXTRA_INSTALL = " \
     kernel-modules \
  "
 
-#    linux-firmware-sd8686 
-#    linux-firmware-sd8787
-#    linux-firmware-wl18xx
-
 WIFI_SUPPORT = " \
     crda \
     iw \
+    linux-firmware-sd8686 \
+    linux-firmware-sd8787 \
     linux-firmware-wl18xx \
     wpa-supplicant \
  "
@@ -63,14 +61,13 @@ EXTRA_TOOLS_INSTALL = " \
     findutils \
     i2c-tools \
     iftop \
-    iperf \
+    iperf3 \
     htop \
     less \
     memtester \
     nano \
     netcat \
     procps \
-    strongswan \
     sysfsutils \
     tcpdump \
     unzip \
@@ -95,15 +92,9 @@ disable_bootlogd() {
     echo BOOTLOGD_ENABLE=no > ${IMAGE_ROOTFS}/etc/default/bootlogd
 }
 
-make_and_mount_data_dir() {
-    mkdir ${IMAGE_ROOTFS}/data
-    echo "# /dev/mmcblk0p6    /data    ext4    defaults    0  0" >> ${IMAGE_ROOTFS}/etc/fstab
-}
-
 ROOTFS_POSTPROCESS_COMMAND += " \
     set_local_timezone ; \
     disable_bootlogd ; \
-    make_and_mount_data_dir ; \
  "
 
 export IMAGE_BASENAME = "console-image"
