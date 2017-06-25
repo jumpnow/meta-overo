@@ -1,0 +1,34 @@
+From cd82ef7960eef4eec83b8d38a35226f50747ea4a Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Tue, 20 Jun 2017 14:32:33 -0400
+Subject: [PATCH 2/7] btmrvl_sdio: Add linefeeds to log messages
+
+---
+ drivers/bluetooth/btmrvl_sdio.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/bluetooth/btmrvl_sdio.c b/drivers/bluetooth/btmrvl_sdio.c
+index ba7fe04..62aaa9d 100644
+--- a/drivers/bluetooth/btmrvl_sdio.c
++++ b/drivers/bluetooth/btmrvl_sdio.c
+@@ -84,7 +84,7 @@ static int btmrvl_sdio_probe_of(struct device *dev,
+ 
+ 	if (!dev->of_node ||
+ 	    !of_match_node(btmrvl_sdio_of_match_table, dev->of_node)) {
+-		pr_err("sdio platform data not available");
++		dev_info(dev, "sdio platform data not available\n");
+ 		return -1;
+ 	}
+ 
+@@ -96,7 +96,7 @@ static int btmrvl_sdio_probe_of(struct device *dev,
+ 	if (cfg && card->plt_of_node) {
+ 		cfg->irq_bt = irq_of_parse_and_map(card->plt_of_node, 0);
+ 		if (!cfg->irq_bt) {
+-			dev_err(dev, "fail to parse irq_bt from device tree");
++			dev_err(dev, "fail to parse irq_bt from device tree\n");
+ 		} else {
+ 			ret = devm_request_irq(dev, cfg->irq_bt,
+ 					       btmrvl_wake_irq_bt,
+-- 
+2.7.4
+

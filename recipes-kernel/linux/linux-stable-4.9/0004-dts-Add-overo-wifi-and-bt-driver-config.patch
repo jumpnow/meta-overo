@@ -1,0 +1,147 @@
+From 52e756834f31dec17613c08932a6b9187d2448b2 Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Sun, 18 Jun 2017 13:18:44 -0400
+Subject: [PATCH 4/7] dts: Add overo wifi and bt driver config
+
+---
+ arch/arm/boot/dts/omap3-overo-base.dtsi  | 73 +++++++++++++++++++-------------
+ arch/arm/boot/dts/omap3-overo-storm.dtsi | 10 +++++
+ 2 files changed, 53 insertions(+), 30 deletions(-)
+
+diff --git a/arch/arm/boot/dts/omap3-overo-base.dtsi b/arch/arm/boot/dts/omap3-overo-base.dtsi
+index 401fae8..3f09aec 100644
+--- a/arch/arm/boot/dts/omap3-overo-base.dtsi
++++ b/arch/arm/boot/dts/omap3-overo-base.dtsi
+@@ -53,36 +53,16 @@
+ 		vcc-supply = <&hsusb2_power>;
+ 	};
+ 
+-	/* Regulator to trigger the nPoweron signal of the Wifi module */
+-	w3cbw003c_npoweron: regulator-w3cbw003c-npoweron {
++	vbat: fixedregulator@0 {
+ 		compatible = "regulator-fixed";
+-		regulator-name = "regulator-w3cbw003c-npoweron";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio2 22 GPIO_ACTIVE_HIGH>;		/* gpio_54: nPoweron */
+-		enable-active-high;
+ 	};
+ 
+-	/* Regulator to trigger the nReset signal of the Wifi module */
+-	w3cbw003c_wifi_nreset: regulator-w3cbw003c-wifi-nreset {
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&w3cbw003c_pins &w3cbw003c_2_pins>;
++	wlcore_wl_en: fixedregulator@1 {
+ 		compatible = "regulator-fixed";
+-		regulator-name = "regulator-w3cbw003c-wifi-nreset";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio1 16 GPIO_ACTIVE_HIGH>;		/* gpio_16: WiFi nReset */
+-		startup-delay-us = <10000>;
+ 	};
+ 
+-	/* Regulator to trigger the nReset signal of the Bluetooth module */
+-	w3cbw003c_bt_nreset: regulator-w3cbw003c-bt-nreset {
++	wlcore_bt_en: fixedregulator@2 {
+ 		compatible = "regulator-fixed";
+-		regulator-name = "regulator-w3cbw003c-bt-nreset";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpio6 4 GPIO_ACTIVE_HIGH>;		/* gpio_164: BT nReset */
+-		startup-delay-us = <10000>;
+ 	};
+ };
+ 
+@@ -127,6 +107,8 @@
+ 			OMAP3_CORE1_IOPAD(0x215e, PIN_INPUT_PULLUP | MUX_MODE0)		/* sdmmc2_dat1.sdmmc2_dat1 */
+ 			OMAP3_CORE1_IOPAD(0x2160, PIN_INPUT_PULLUP | MUX_MODE0)		/* sdmmc2_dat2.sdmmc2_dat2 */
+ 			OMAP3_CORE1_IOPAD(0x2162, PIN_INPUT_PULLUP | MUX_MODE0)		/* sdmmc2_dat3.sdmmc2_dat3 */
++			OMAP3_CORE1_IOPAD(0x20bc, PIN_INPUT | MUX_MODE4)		/* gpmc_ncs7.gpio_58 */
++			OMAP3_CORE1_IOPAD(0x219c, PIN_OUTPUT | MUX_MODE4)		/* uart3_rts_sd.gpio_164 */
+ 		>;
+ 	};
+ 
+@@ -134,7 +116,6 @@
+ 	w3cbw003c_pins: pinmux_w3cbw003c_pins {
+ 		pinctrl-single,pins = <
+ 			OMAP3_CORE1_IOPAD(0x20b4, PIN_OUTPUT | MUX_MODE4)		/* gpmc_ncs3.gpio_54 */
+-			OMAP3_CORE1_IOPAD(0x219c, PIN_OUTPUT | MUX_MODE4)		/* uart3_rts_sd.gpio_164 */
+ 		>;
+ 	};
+ 
+@@ -186,16 +167,48 @@
+ 	bus-width = <4>;
+ };
+ 
++&vbat {
++	regulator-name = "vbat";
++	regulator-min-microvolt = <5000000>;
++	regulator-max-microvolt = <5000000>;
++};
++
++&wlcore_wl_en {
++	regulator-name = "regulator-wlcore-wl-en";
++	regulator-min-microvolt = <3300000>;
++	regulator-max-microvolt = <3300000>;
++	vin-supply = <&vbat>;
++	gpio = <&gpio1 16 GPIO_ACTIVE_HIGH>;   /* gpio_16: WL Enable */
++	/* WLAN card specific delay */
++	startup-delay-us = <70000>;
++	enable-active-high;
++};
++
++&wlcore_bt_en {
++	regulator-name = "regulator-wlcore-bt-en";
++	regulator-min-microvolt = <3300000>;
++	regulator-max-microvolt = <3300000>;
++	vin-supply = <&vbat>;
++	gpio = <&gpio6 4 GPIO_ACTIVE_HIGH>;    /* gpio_164: BT Enable */
++	startup-delay-us = <70000>;
++};
++
++
+ /* optional on board WiFi */
+ &mmc2 {
++	status = "okay";
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&mmc2_pins>;
+-	vmmc-supply = <&w3cbw003c_npoweron>;
+-	vqmmc-supply = <&w3cbw003c_bt_nreset>;
+-	vmmc_aux-supply = <&w3cbw003c_wifi_nreset>;
+-	bus-width = <4>;
+-	cap-sdio-irq;
+-	non-removable;
++	ti,bus-width = <4>;
++	vmmc-supply = <&vmmc2>;
++	vmmc_aux-supply = <&wlcore_wl_en>;
++	vqmmc-supply = <&wlcore_bt_en>;
++	ti,non-removable;
++	ti,needs-special-hs-handling;
++	cap-power-off-card;
++	keep-power-in-suspend;
++	ti,dual-volt;
++	max-frequency = <40000000>;
+ };
+ 
+ &twl_gpio {
+diff --git a/arch/arm/boot/dts/omap3-overo-storm.dtsi b/arch/arm/boot/dts/omap3-overo-storm.dtsi
+index 6cb418b..5c05de9 100644
+--- a/arch/arm/boot/dts/omap3-overo-storm.dtsi
++++ b/arch/arm/boot/dts/omap3-overo-storm.dtsi
+@@ -33,3 +33,13 @@
+ 	};
+ };
+ 
++&mmc2{
++	#address-cells = <1>;
++	#size-cells = <0>;
++	wlcore: wlcore@0 {
++		compatible = "ti,wl1831";
++		reg = <2>;
++		interrupt-parent = <&gpio2>;
++		interrupts = <26 IRQ_TYPE_LEVEL_HIGH>;
++	};
++};
+-- 
+2.7.4
+
