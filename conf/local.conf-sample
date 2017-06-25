@@ -1,10 +1,10 @@
 # Local configuration for meta-overo images
-# Yocto Project 2.1 Poky distribution [krogoth] branch
+# Yocto Project 2.3 Poky distribution [pyro] branch
 # This is a sysvinit system
 
 LICENSE_FLAGS_WHITELIST = "commercial"
 
-DISTRO_FEATURES = "ext2 usbhost ${DISTRO_FEATURES_LIBC}"
+DISTRO_FEATURES = "bluez5 ext2 usbhost ${DISTRO_FEATURES_LIBC}"
 
 DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio opengl"
 
@@ -13,15 +13,19 @@ PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_udev = "eudev"
 VIRTUAL_RUNTIME_init_manager = "sysvinit"
 
-PREFERRED_VERSION_linux-stable = "4.4"
+PREFERRED_VERSION_u-boot = "2016.07"
+
+#FORTRAN_forcevariable = ",fortran"
+#RUNTIMETARGET_append_pn-gcc-runtime = " libquadmath"
+#RUNTIMETARGET_append_pn-gcc-runtime = " libgfortran"
 
 MACHINE = "overo"
 
-# DL_DIR = "${HOME}/oe-sources"
+#DL_DIR = "${HOME}/oe-sources"
 
-# SSTATE_DIR = "/oe5/overo/sstate-cache"
+#SSTATE_DIR = "/oe9/overo/sstate-cache"
 
-# TMPDIR = "/oe5/overo/tmp-krogoth"
+#TMPDIR = "/oe9/overo/tmp-pyro"
 
 DISTRO = "poky"
 
@@ -37,5 +41,7 @@ USER_CLASSES = "image-mklibs image-prelink"
 PATCHRESOLVE = "noop"
 
 RM_OLD_IMAGE = "1"
+
+INHERIT += "rm_work"
 
 CONF_VERSION = "1"
