@@ -1,18 +1,18 @@
 This layer depends on:
 
     URI: git://git.yoctoproject.org/poky.git
-    branch: pyro
-    revision: HEAD
-    commit: 9074fb4
+    branch: hardknott
 
     URI: git://git.openembedded.org/meta-openembedded
-    branch: pyro
-    revision: HEAD
-    commit: 5e82995
+    branch: hardknott
 
-    URI: https://github.com/meta-qt5/meta-qt5
-    branch: pyro
-    revision: HEAD
-    commit: 6a42ca0
+    URI: git://git.yoctoproject.org/meta-security.git
+    branch: hardknott
 
-    meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
+Latest commits:
+
+    poky e6ba9f34ef
+    meta-openembedded dc262c52b
+    meta-security 16c68aa
+
+meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>

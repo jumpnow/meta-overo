@@ -1,47 +1,47 @@
-# Local configuration for meta-overo images
-# Yocto Project 2.3 Poky distribution [pyro] branch
-# This is a sysvinit system
+# Local configuration for meta-duovero images
+# Yocto Project 3.3 Poky distribution [hardknott] branch
+# This is a systemd system
 
 LICENSE_FLAGS_WHITELIST = "commercial"
 
-DISTRO_FEATURES = "bluez5 ext2 usbhost ${DISTRO_FEATURES_LIBC}"
+# use local layer u-boot version
+BBMASK = "meta/recipes-bsp/u-boot/"
 
-DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio opengl"
+DISTRO_FEATURES = "ext2 systemd usbhost ${DISTRO_FEATURES_LIBC}"
 
-PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
+DISTRO_FEATURES_BACKFILL_CONSIDERED = "pulseaudio sysvinit"
 
-PREFERRED_PROVIDER_udev = "eudev"
-VIRTUAL_RUNTIME_init_manager = "sysvinit"
+DISTRO_FEATURES_remove = "ptest"
 
-PREFERRED_VERSION_u-boot = "2016.07"
-
-#FORTRAN_forcevariable = ",fortran"
-#RUNTIMETARGET_append_pn-gcc-runtime = " libquadmath"
-#RUNTIMETARGET_append_pn-gcc-runtime = " libgfortran"
+INIT_MANAGER = "systemd"
 
 MACHINE = "overo"
 
-#DL_DIR = "${HOME}/oe-sources"
+PREFERRED_VERSION_linux-stable = "5.14.%"
 
-#SSTATE_DIR = "/oe9/overo/sstate-cache"
-
-#TMPDIR = "/oe9/overo/tmp-pyro"
+#DL_DIR = "/src/hardknott"
+#SSTATE_DIR = "/oe5/overo/sstate-cache"
+#TMPDIR = "/oe5/overo/tmp-hardknott"
 
 DISTRO = "poky"
-
 PACKAGE_CLASSES = "package_ipk"
 
-# i686 or x86_64
 SDKMACHINE = "x86_64"
 
+# for no root password
 EXTRA_IMAGE_FEATURES = "debug-tweaks"
+
+# set a root password
+#INHERIT += "extrausers"
+#EXTRA_USERS_PARAMS = "usermod -P jumpnowtek root; "
+
+# force password change on first login
+#INHERIT += "chageusers"
+#CHAGE_USERS_PARAMS = "chage -d0 root; "
 
 USER_CLASSES = "image-mklibs image-prelink"
 
 PATCHRESOLVE = "noop"
-
 RM_OLD_IMAGE = "1"
-
 INHERIT += "rm_work"
-
 CONF_VERSION = "1"

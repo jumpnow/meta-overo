@@ -1,6 +1,6 @@
 require linux-stable.inc
 
-LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
+LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 
 KERNEL_CONFIG_COMMAND = "oe_runmake_call -C ${S} CC="${KERNEL_CC}" O=${B} olddefconfig"
 
@@ -11,15 +11,15 @@ KERNEL_DEVICETREE = "\
     omap3-overo-tobi.dtb \
 "
 
-LINUX_VERSION = "4.9"
+LINUX_VERSION = "5.4"
 LINUX_VERSION_EXTENSION = "-jumpnow"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/linux-stable-${LINUX_VERSION}:"
 
 S = "${WORKDIR}/git"
 
-PV = "4.9.283"
-SRCREV = "2a4bf15a4f9229052ab38718ad510848947e8871"
+PV = "5.4.148"
+SRCREV = "07e5f23d3fa6ca98457d1a2177a735fcc65923c2"
 SRC_URI = " \
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;branch=linux-${LINUX_VERSION}.y \
     file://defconfig \
