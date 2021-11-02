@@ -1,27 +1,20 @@
 # Local configuration for meta-duovero images
-# Yocto Project 3.3 Poky distribution [hardknott] branch
+# Yocto Project 3.4 Poky distribution [honister] branch
 # This is a systemd system
 
 LICENSE_FLAGS_WHITELIST = "commercial"
 
-# use local layer u-boot version
-BBMASK = "meta/recipes-bsp/u-boot/"
-
-DISTRO_FEATURES = "ext2 systemd usbhost ${DISTRO_FEATURES_LIBC}"
+DISTRO_FEATURES = "ext2 systemd security usbhost ${DISTRO_FEATURES_LIBC}"
 
 DISTRO_FEATURES_BACKFILL_CONSIDERED = "pulseaudio sysvinit"
-
-DISTRO_FEATURES_remove = "ptest"
 
 INIT_MANAGER = "systemd"
 
 MACHINE = "overo"
 
-PREFERRED_VERSION_linux-stable = "5.14.%"
-
-#DL_DIR = "/src/hardknott"
-#SSTATE_DIR = "/oe5/overo/sstate-cache"
-#TMPDIR = "/oe5/overo/tmp-hardknott"
+#DL_DIR = "/src/honister"
+#SSTATE_DIR = "/oe8/overo/sstate-cache"
+#TMPDIR = "/oe8/overo/tmp-honister"
 
 DISTRO = "poky"
 PACKAGE_CLASSES = "package_ipk"
@@ -39,9 +32,9 @@ EXTRA_IMAGE_FEATURES = "debug-tweaks"
 #INHERIT += "chageusers"
 #CHAGE_USERS_PARAMS = "chage -d0 root; "
 
-USER_CLASSES = "image-mklibs image-prelink"
+USER_CLASSES = "image-prelink"
 
 PATCHRESOLVE = "noop"
 RM_OLD_IMAGE = "1"
 INHERIT += "rm_work"
-CONF_VERSION = "1"
+CONF_VERSION = "2"
