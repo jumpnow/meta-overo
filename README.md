@@ -1,18 +1,26 @@
 This layer depends on:
 
     URI: git://git.yoctoproject.org/poky.git
-    branch: hardknott
+    branch: honister
 
     URI: git://git.openembedded.org/meta-openembedded
-    branch: hardknott
+    branch: honister
 
     URI: git://git.yoctoproject.org/meta-security.git
-    branch: hardknott
+    branch: honister
 
 Latest commits:
 
-    poky cb99adf5fa
-    meta-openembedded d378e4293
-    meta-security 16c68aa
+    poky 43cfa130d9
+    meta-openembedded e886fc0cb
+    meta-security e81c15f
 
 meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
+
+
+NOTE: The default defconfig for the 5.15 kernel in this repo has most kernel
+      protections intentionally disabled. The purpose is to create an easily
+      exploitable arm32 Linux system.
+
+      Use another kernel defconfig if you are using this repo for something
+      important (bitbake -c menuconfig virtual/kernel)
