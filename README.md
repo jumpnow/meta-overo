@@ -24,3 +24,11 @@ NOTE: The default defconfig for the 5.15 kernel in this repo has most kernel
 
       Use another kernel defconfig if you are using this repo for something
       important (bitbake -c menuconfig virtual/kernel)
+
+Some more security disabling can be done by modifying /etc/sysctl.conf
+
+    ...
+    fs.protected_hardlinks = 0
+    fs.protected_symlinks = 0
+
+    kernel.randomize_va_space = 0
