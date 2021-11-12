@@ -27,6 +27,7 @@ DEV_SDK = " \
     file \
     gcc \
     gcc-symlinks \
+    gdb \
     g++ \
     g++-symlinks \
     gettext \
