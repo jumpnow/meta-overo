@@ -12,7 +12,7 @@ This layer depends on:
 Latest commits:
 
     poky 6e02c340bf
-    meta-openembedded e886fc0cb
+    meta-openembedded ad52a41de
     meta-security fb77606
 
 meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
