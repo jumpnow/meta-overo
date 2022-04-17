@@ -52,6 +52,11 @@ if [ ! -f ${SRC}/u-boot-${MACHINE}.img ]; then
     exit 1
 fi
 
+if [ ! -f ${SRC}/boot.scr ]; then
+    echo "File not found: ${SRC}/boot.scr"
+    exit 1
+fi
+
 if [ -b ${1} ]; then
     DEV=${1}
 elif [ -b "/dev/${1}1" ]; then
@@ -75,18 +80,8 @@ sudo cp ${SRC}/MLO-${MACHINE} /media/card/MLO
 echo "Copying u-boot"
 sudo cp ${SRC}/u-boot-${MACHINE}.img /media/card/u-boot.img
 
-if [ -f ${SRC}/boot.scr ]; then
-    echo "Copying boot.scr to /media/card"
-    sudo cp ${SRC}/boot.scr /media/card
-else
-    if [ -f ${SRC}/uEnv.txt ]; then
-        echo "Copying ${SRC}/uEnv.txt to /media/card"
-        sudo cp ${SRC}/uEnv.txt /media/card
-    elif [ -f ./uEnv.txt ]; then
-        echo "Copying ./uEnv.txt to /media/card"
-        sudo cp ./uEnv.txt /media/card
-    fi
-fi
+echo "Copying boot.scr"
+sudo cp ${SRC}/boot.scr /media/card
 
 sudo sync
 
@@ -94,4 +89,3 @@ echo "Unmounting ${DEV}"
 sudo umount ${DEV}
 
 echo "Done"
-
