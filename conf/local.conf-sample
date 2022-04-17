@@ -12,6 +12,9 @@ INIT_MANAGER = "systemd"
 
 MACHINE = "overo"
 
+# 5.17 recipe is available
+PREFERRED_VERSION_linux-stable = "5.15.%"
+
 #DL_DIR = "/src/honister"
 #SSTATE_DIR = "/oe8/overo/sstate-cache"
 #TMPDIR = "/oe8/overo/tmp-honister"
