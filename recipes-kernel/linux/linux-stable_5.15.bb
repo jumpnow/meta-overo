@@ -12,7 +12,6 @@ KERNEL_DEVICETREE = "\
 "
 
 LINUX_VERSION = "5.15"
-LINUX_VERSION_EXTENSION = "-jumpnow"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/linux-stable-${LINUX_VERSION}:"
 
