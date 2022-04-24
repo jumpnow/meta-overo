@@ -87,7 +87,7 @@ sudo tar -C "$mnt" -xJf "${src}/${IMAGE}-image-${MACHINE}.tar.xz"
 
 echo "Generating a random-seed for urandom"
 mkdir -p "${mnt}/var/lib/systemd"
-sudo dd if=/dev/urandom of="${mnt}/var/lib/systemd/random-seed" bs=512 count=1
+sudo dd status=none if=/dev/urandom of="${mnt}/var/lib/systemd/random-seed" bs=512 count=1
 sudo chmod 600 "${mnt}/var/lib/systemd/random-seed"
 
 echo "Writing $target_hostname to ${mnt}/etc/hostname"
