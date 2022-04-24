@@ -1,19 +1,19 @@
 This layer depends on:
 
     URI: git://git.yoctoproject.org/poky.git
-    branch: honister
+    branch: kirkstone
 
     URI: git://git.openembedded.org/meta-openembedded
-    branch: honister
+    branch: kirkstone
 
     URI: git://git.yoctoproject.org/meta-security.git
-    branch: honister
+    branch: kirkstone
 
 Latest commits:
 
-    poky 42735fc06d
-    meta-openembedded 9a0caf5b0
-    meta-security fb77606
+    poky a2acea4633
+    meta-openembedded 64156a6f8
+    meta-security 93f2146
 
 meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
 

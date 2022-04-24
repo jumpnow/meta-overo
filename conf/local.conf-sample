@@ -1,8 +1,8 @@
 # Local configuration for meta-duovero images
-# Yocto Project 3.4 Poky distribution [honister] branch
+# Yocto Project 4.0 Poky distribution [kirkstone] branch
 # This is a systemd system
 
-LICENSE_FLAGS_WHITELIST = "commercial"
+LICENSE_FLAGS_ACCEPTED = "commercial"
 
 DISTRO_FEATURES = "ext2 systemd security usbhost ${DISTRO_FEATURES_LIBC}"
 
@@ -15,9 +15,9 @@ MACHINE = "overo"
 # 5.17 recipe is available
 PREFERRED_VERSION_linux-stable = "5.15.%"
 
-#DL_DIR = "/src/honister"
-#SSTATE_DIR = "/oe8/overo/sstate-cache"
-#TMPDIR = "/oe8/overo/tmp-honister"
+#DL_DIR = "/oe/dl/kirkstone"
+#SSTATE_DIR = "/oe/overo/sstate-cache"
+#TMPDIR = "/oe/overo/tmp-kirkstone"
 
 DISTRO = "poky"
 PACKAGE_CLASSES = "package_ipk"
@@ -34,8 +34,6 @@ EXTRA_IMAGE_FEATURES = "debug-tweaks"
 # force password change on first login
 #INHERIT += "chageusers"
 #CHAGE_USERS_PARAMS = "chage -d0 root; "
-
-USER_CLASSES = "image-prelink"
 
 PATCHRESOLVE = "noop"
 RM_OLD_IMAGE = "1"

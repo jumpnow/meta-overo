@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mnt=/mnt
+
 MACHINE=overo
 
 if [ "x${1}" = "x" ]; then
@@ -16,8 +18,8 @@ if [ $? -ne 1 ]; then
     exit 1
 fi
 
-if [ ! -d /media/card ]; then
-    echo "Temporary mount point [/media/card] not found"
+if [ ! -d "$mnt" ]; then
+    echo "Temporary mount point [ $mnt ] not found"
     exit 1
 fi
 
@@ -40,87 +42,60 @@ fi
 
 echo -e "\nOETMP: $OETMP"
 
-if [ ! -d ${OETMP}/deploy/images/${MACHINE} ]; then
+if [ ! -d "${OETMP}/deploy/images/${MACHINE}" ]; then
     echo "Directory not found: ${OETMP}/deploy/images/${MACHINE}"
     exit 1
 fi
 
-SRC=${OETMP}/deploy/images/${MACHINE}
+src=${OETMP}/deploy/images/${MACHINE}
 
 echo "IMAGE: $IMAGE"
 
 if [ "x${3}" = "x" ]; then
-    TARGET_HOSTNAME=$MACHINE
+    target_hostname=$MACHINE
 else
-    TARGET_HOSTNAME=${3}
+    target_hostname=${3}
 fi
 
-echo "HOSTNAME: $TARGET_HOSTNAME"
+echo "HOSTNAME: $target_hostname"
 
 
-if [ ! -f "${SRC}/${IMAGE}-image-${MACHINE}.tar.xz" ]; then
-    echo "File not found: ${SRC}/${IMAGE}-image-${MACHINE}.tar.xz"
+if [ ! -f "${src}/${IMAGE}-image-${MACHINE}.tar.xz" ]; then
+    echo "File not found: ${src}/${IMAGE}-image-${MACHINE}.tar.xz"
     exit 1
 fi
 
-if [ -b ${1} ]; then
-    DEV=${1}
+if [ -b "$1" ]; then
+    dev="$1"
 elif [ -b "/dev/${1}2" ]; then
-    DEV=/dev/${1}2
+    dev="/dev/${1}2"
 elif [ -b "/dev/${1}p2" ]; then
-    DEV=/dev/${1}p2
+    dev="/dev/${1}p2"
 else
     echo "Block device not found: /dev/${1}2 or /dev/${1}p2"
     exit 1
 fi
 
-echo "Formatting $DEV as ext4"
-sudo mkfs.ext4 -q -L ROOT $DEV
+echo "Formatting $dev as ext4"
+sudo mkfs.ext4 -q -L ROOT "$dev"
 
-echo "Mounting $DEV"
-sudo mount $DEV /media/card
+echo "Mounting $dev"
+sudo mount "$dev" "$mnt"
 
 echo "Extracting ${IMAGE}-image-${MACHINE}.tar.xz to /media/card"
-sudo tar -C /media/card -xJf ${SRC}/${IMAGE}-image-${MACHINE}.tar.xz
+sudo tar -C "$mnt" -xJf "${src}/${IMAGE}-image-${MACHINE}.tar.xz"
 
 echo "Generating a random-seed for urandom"
-mkdir -p /media/card/var/lib/systemd
-sudo dd if=/dev/urandom of=/media/card/var/lib/systemd/random-seed bs=512 count=1
-sudo chmod 600 /media/card/var/lib/systemd/random-seed
+mkdir -p "${mnt}/var/lib/systemd"
+sudo dd if=/dev/urandom of="${mnt}/var/lib/systemd/random-seed" bs=512 count=1
+sudo chmod 600 "${mnt}/var/lib/systemd/random-seed"
 
-echo "Writing ${TARGET_HOSTNAME} to /etc/hostname"
-export TARGET_HOSTNAME
-sudo -E bash -c 'echo ${TARGET_HOSTNAME} > /media/card/etc/hostname'
+echo "Writing $target_hostname to ${mnt}/etc/hostname"
+export mnt
+export target_hostname
+sudo -E bash -c 'echo $target_hostname > ${mnt}/etc/hostname'
 
-if [ -f ${SRC}/interfaces ]; then
-    echo "Writing interfaces to /media/card/etc/network/"
-    sudo cp ${SRC}/interfaces /media/card/etc/network/interfaces
-elif [ -f ./interfaces ]; then
-    echo "Writing ./interfaces to /media/card/etc/network/"
-    sudo cp ./interfaces /media/card/etc/network/interfaces
-fi
-
-if [ -f ${SRC}/wpa_supplicant.conf ]; then
-    echo "Writing wpa_supplicant.conf to /media/card/etc/"
-    sudo cp ${SRC}/wpa_supplicant.conf /media/card/etc/wpa_supplicant.conf
-elif [ -f ./wpa_supplicant.conf ]; then
-    echo "Writing ./wpa_supplicant.conf to /media/card/etc/"
-    sudo cp ./wpa_supplicant.conf /media/card/etc/wpa_supplicant.conf
-fi
-
-echo "Unmounting $DEV"
-sudo umount $DEV
-
-if [ -b "/dev/${1}5" ]; then
-    DEV=/dev/${1}5
-    echo "Formatting flags partition as FAT: ${DEV}"
-    sudo mkfs.vfat ${DEV}
-fi
-
-if [ -b "/dev/${1}6" ]; then
-    DEV=/dev/${1}6
-    echo "Formatting opt partition as ext4: ${DEV}"
-    sudo mkfs.ext4 -q -F ${DEV}
-fi
+echo "Unmounting $dev"
+sudo umount "$dev"
 
 echo "Done"
