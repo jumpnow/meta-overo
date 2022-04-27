@@ -17,7 +17,7 @@ PREFERRED_VERSION_linux-stable = "5.15.%"
 
 #DL_DIR = "/oe/dl/kirkstone"
 #SSTATE_DIR = "/oe/overo/sstate-cache"
-#TMPDIR = "/oe/overo/tmp-kirkstone"
+#TMPDIR = "/oe/overo/tmp"
 
 DISTRO = "poky"
 PACKAGE_CLASSES = "package_ipk"
