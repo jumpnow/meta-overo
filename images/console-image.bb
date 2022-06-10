@@ -76,6 +76,7 @@ EXTRA_TOOLS = " \
 SECURITY_TOOLS = " \
     checksec \
     nmap \
+    wireguard-tools \
 "
 
 SYSTEMD_STUFF = " \
