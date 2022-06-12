@@ -1,4 +1,4 @@
-SUMMARY = "A console development image for the overo"
+SUMMARY = "A console image for the overo"
 HOMEPAGE = "http://www.jumpnowtek.com"
 
 IMAGE_FEATURES += "package-management"
@@ -14,34 +14,6 @@ CORE_OS = " \
 
 KERNEL_EXTRA = " \
     kernel-modules \
-"
-
-DEV_SDK = " \
-    binutils \
-    binutils-symlinks \
-    coreutils \
-    cpp \
-    cpp-symlinks \
-    diffutils \
-    elfutils elfutils-binutils \
-    file \
-    gcc \
-    gcc-symlinks \
-    gdb \
-    g++ \
-    g++-symlinks \
-    gettext \
-    git \
-    ldd \
-    libstdc++ \
-    libstdc++-dev \
-    libtool \
-    ltrace \
-    make \
-    perl-modules \
-    pkgconfig \
-    python3-modules \
-    strace \
 "
 
 EXTRA_TOOLS = " \
@@ -86,7 +58,6 @@ SYSTEMD_STUFF = " \
 
 IMAGE_INSTALL += " \
     ${CORE_OS} \
-    ${DEV_SDK} \
     ${EXTRA_TOOLS} \
     ${KERNEL_EXTRA} \
     ${SECURITY_TOOLS} \
