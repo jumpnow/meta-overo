@@ -77,7 +77,7 @@ sudo cp "${src}/MLO-${MACHINE}" "${mnt}/MLO"
 echo "Copying u-boot"
 sudo cp "${src}/u-boot-${MACHINE}.img" "${mnt}/u-boot.img"
 
-if [ ! -f "${src}/boot.scr" ]; then
+if [ -f "${src}/boot.scr" ]; then
     echo "Copying boot.scr"
     sudo cp "${src}/boot.scr" "$mnt"
 fi
