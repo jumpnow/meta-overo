@@ -54,11 +54,6 @@ if [ ! -f "${src}/u-boot-${MACHINE}.img" ]; then
     exit 1
 fi
 
-if [ ! -f "${src}/boot.scr" ]; then
-    echo "File not found: ${src}/boot.scr"
-    exit 1
-fi
-
 if [ -b "$1" ]; then
     dev="$1"
 elif [ -b "/dev/${1}1" ]; then
@@ -74,7 +69,7 @@ echo "Formatting FAT partition on $dev"
 sudo mkfs.vfat "$dev" -n "BOOT"
 
 echo "Mounting $dev"
-sudo mount "$dev" "$mnt" 
+sudo mount "$dev" "$mnt"
 
 echo "Copying MLO"
 sudo cp "${src}/MLO-${MACHINE}" "${mnt}/MLO"
@@ -82,8 +77,10 @@ sudo cp "${src}/MLO-${MACHINE}" "${mnt}/MLO"
 echo "Copying u-boot"
 sudo cp "${src}/u-boot-${MACHINE}.img" "${mnt}/u-boot.img"
 
-echo "Copying boot.scr"
-sudo cp "${src}/boot.scr" "$mnt" 
+if [ ! -f "${src}/boot.scr" ]; then
+    echo "Copying boot.scr"
+    sudo cp "${src}/boot.scr" "$mnt"
+fi
 
 sudo sync
 

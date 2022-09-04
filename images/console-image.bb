@@ -12,10 +12,6 @@ CORE_OS = " \
     tzdata \
 "
 
-KERNEL_EXTRA = " \
-    kernel-modules \
-"
-
 EXTRA_TOOLS = " \
     bzip2 \
     chrony \
@@ -59,7 +55,6 @@ SYSTEMD_STUFF = " \
 IMAGE_INSTALL += " \
     ${CORE_OS} \
     ${EXTRA_TOOLS} \
-    ${KERNEL_EXTRA} \
     ${SECURITY_TOOLS} \
     ${SYSTEMD_STUFF} \
 "
