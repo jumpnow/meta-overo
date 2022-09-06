@@ -1,0 +1,129 @@
+From e6ec24139274e621677792e8354a2698628435b6 Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Sun, 4 Sep 2022 11:48:37 -0400
+Subject: [PATCH] Simplify boot command
+
+---
+ include/configs/omap3_overo.h | 60 ++---------------------------------
+ 1 file changed, 2 insertions(+), 58 deletions(-)
+
+diff --git a/include/configs/omap3_overo.h b/include/configs/omap3_overo.h
+index 9a5b9f297c..36a2cf2e87 100644
+--- a/include/configs/omap3_overo.h
++++ b/include/configs/omap3_overo.h
+@@ -32,18 +32,6 @@
+ 
+ /* commands to include */
+ 
+-#ifdef CONFIG_MTD_RAW_NAND
+-/* NAND block size is 128 KiB.  Synchronize these values with
+- * overo_nand_partitions in mach-omap2/board-overo.c in Linux:
+- *  xloader              4 * NAND_BLOCK_SIZE = 512 KiB
+- *  uboot               14 * NAND_BLOCK_SIZE = 1792 KiB
+- *  uboot environtment   2 * NAND_BLOCK_SIZE = 256 KiB
+- *  linux               64 * NAND_BLOCK_SIZE = 8 MiB
+- *  rootfs              remainder
+- */
+-#endif /* CONFIG_MTD_RAW_NAND */
+-
+-/* Board NAND Info. */
+ /* Environment information */
+ #define CONFIG_EXTRA_ENV_SETTINGS \
+ 	DEFAULT_LINUX_BOOT_ENV \
+@@ -53,60 +41,29 @@
+ 	"console=ttyO2,115200n8\0" \
+ 	"mpurate=auto\0" \
+ 	"optargs=\0" \
+-	"vram=12M\0" \
+-	"dvimode=1024x768MR-16@60\0" \
+-	"defaultdisplay=dvi\0" \
+ 	"mmcdev=0\0" \
+ 	"mmcroot=/dev/mmcblk0p2 rw\0" \
+ 	"mmcrootfstype=ext4 rootwait\0" \
+-	"nandroot=ubi0:rootfs ubi.mtd=4\0" \
+-	"nandrootfstype=ubifs\0" \
+-	"mtdparts=" CONFIG_MTDPARTS_DEFAULT "\0" \
+ 	"mmcargs=setenv bootargs console=${console} " \
+ 		"${optargs} " \
+ 		"mpurate=${mpurate} " \
+ 		"vram=${vram} " \
+-		"omapfb.mode=dvi:${dvimode} " \
+-		"omapdss.def_disp=${defaultdisplay} " \
+ 		"root=${mmcroot} " \
+ 		"rootfstype=${mmcrootfstype}\0" \
+-	"nandargs=setenv bootargs console=${console} " \
+-		"${optargs} " \
+-		"mpurate=${mpurate} " \
+-		"vram=${vram} " \
+-		"omapfb.mode=dvi:${dvimode} " \
+-		"omapdss.def_disp=${defaultdisplay} " \
+-		"root=${nandroot} " \
+-		"rootfstype=${nandrootfstype}\0" \
+ 	"loadbootscript=load mmc ${mmcdev} ${loadaddr} boot.scr\0" \
+ 	"bootscript=echo Running boot script from mmc ...; " \
+ 		"source ${loadaddr}\0" \
+ 	"loadbootenv=load mmc ${mmcdev} ${loadaddr} uEnv.txt\0" \
+ 	"importbootenv=echo Importing environment from mmc ...; " \
+ 		"env import -t ${loadaddr} ${filesize}\0" \
+-	"loaduimage=load mmc ${mmcdev} ${loadaddr} uImage\0" \
+ 	"mmcboot=echo Booting from mmc...; " \
+ 		"run mmcargs; " \
+ 		"bootm ${loadaddr}\0" \
+ 	"loadzimage=load mmc ${mmcdev}:2 ${loadaddr} ${bootdir}/${bootfile}\0" \
+ 	"loadfdt=load mmc ${mmcdev}:2 ${fdtaddr} ${bootdir}/${fdtfile}\0" \
+-	"loadubizimage=ubifsload ${loadaddr} ${bootdir}/${bootfile}\0" \
+-	"loadubifdt=ubifsload ${fdtaddr} ${bootdir}/${fdtfile}\0" \
+-	"mmcbootfdt=echo Booting with DT from mmc ...; " \
++	"mmcbootfdt=echo Booting from mmc...; " \
+ 		"run mmcargs; " \
+ 		"bootz ${loadaddr} - ${fdtaddr}\0" \
+-	"nandboot=echo Booting from nand ...; " \
+-		"run nandargs; " \
+-		"if nand read ${loadaddr} linux; then " \
+-			"bootm ${loadaddr};" \
+-		"fi;\0" \
+-	"nanddtsboot=echo Booting from nand with DTS...; " \
+-		"run nandargs; " \
+-		"ubi part rootfs; "\
+-		"ubifsmount ubi0:rootfs; "\
+-		"run loadubifdt; "\
+-		"run loadubizimage; "\
+-		"bootz ${loadaddr} - ${fdtaddr}\0" \
+ 
+ #define CONFIG_BOOTCOMMAND \
+ 	"mmc dev ${mmcdev}; if mmc rescan; then " \
+@@ -121,9 +78,6 @@
+ 			"echo Running uenvcmd ...;" \
+ 			"run uenvcmd;" \
+ 		"fi;" \
+-		"if run loaduimage; then " \
+-			"run mmcboot;" \
+-		"fi;" \
+ 		"if run loadzimage; then " \
+ 			"if test -z \"${fdtfile}\"; then " \
+ 				"setenv fdtfile omap3-${boardname}-${expansionname}.dtb;" \
+@@ -132,20 +86,10 @@
+ 				"run mmcbootfdt;" \
+ 			"fi;" \
+ 		"fi;" \
+-	"fi;" \
+-	"run nandboot; " \
+-	"if test -z \"${fdtfile}\"; then "\
+-		"setenv fdtfile omap3-${boardname}-${expansionname}.dtb;" \
+-	"fi;" \
+-	"run nanddtsboot; " \
++	"fi;"
+ 
+ /* memtest works on */
+ 
+-/* FLASH and environment organization */
+-#if defined(CONFIG_MTD_RAW_NAND)
+-#define CONFIG_SYS_FLASH_BASE		NAND_BASE
+-#endif
+-
+ /* Monitor at start of flash */
+ #define CONFIG_SYS_MONITOR_BASE		CONFIG_SYS_FLASH_BASE
+ #define CONFIG_SYS_ONENAND_BASE		ONENAND_MAP
+-- 
+2.25.1
+
