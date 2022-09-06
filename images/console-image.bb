@@ -28,20 +28,21 @@ EXTRA_TOOLS = " \
     iptables \
     less \
     lsof \
+    ltrace \
     netcat-openbsd \
     parted \
     procps \
+    strace \
     sysfsutils \
     tcpdump \
     util-linux \
     util-linux-blkid \
     unzip \
-    vim \
     wget \
     zip \
 "
 
-SECURITY_TOOLS = " \
+SECURITY_STUFF = " \
     checksec \
     nmap \
     wireguard-tools \
@@ -55,7 +56,7 @@ SYSTEMD_STUFF = " \
 IMAGE_INSTALL += " \
     ${CORE_OS} \
     ${EXTRA_TOOLS} \
-    ${SECURITY_TOOLS} \
+    ${SECURITY_STUFF} \
     ${SYSTEMD_STUFF} \
 "
 
