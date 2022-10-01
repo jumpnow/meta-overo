@@ -5,6 +5,7 @@ require console-image.bb
 DEV_SDK = " \
     binutils \
     binutils-symlinks \
+    cmake \
     coreutils \
     cpp \
     cpp-symlinks \
