@@ -6,12 +6,9 @@ DEV_SDK = " \
     binutils \
     binutils-symlinks \
     cmake \
-    coreutils \
     cpp \
     cpp-symlinks \
-    diffutils \
     elfutils elfutils-binutils \
-    file \
     gcc \
     gcc-symlinks \
     gdb \
