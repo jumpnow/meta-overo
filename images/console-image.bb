@@ -51,16 +51,10 @@ SECURITY_STUFF = " \
     wireguard-tools \
 "
 
-SYSTEMD_STUFF = " \
-    systemd-analyze \
-    systemd-bash-completion \
-"
-
 IMAGE_INSTALL += " \
     ${CORE_OS} \
     ${EXTRA_TOOLS} \
     ${SECURITY_STUFF} \
-    ${SYSTEMD_STUFF} \
 "
 
 set_local_timezone() {
@@ -68,8 +62,9 @@ set_local_timezone() {
     echo 'America/New_York' > ${IMAGE_ROOTFS}/etc/timezone
 }
 
-ROOTFS_POSTPROCESS_COMMAND += " \
-    set_local_timezone ; \
+
+ROOTFS_POSTPROCESS_COMMAND += " \ 
+    set_local_timezone ; \ 
 "
 
 export IMAGE_BASENAME = "console-image"

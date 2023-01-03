@@ -11,14 +11,14 @@ KERNEL_DEVICETREE = "\
     omap3-overo-tobi.dtb \
 "
 
-LINUX_VERSION = "5.19"
+LINUX_VERSION = "6.1"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/linux-stable-${LINUX_VERSION}:"
 
 S = "${WORKDIR}/git"
 
-PV = "5.19.17"
-SRCREV = "2b525314c7b57eac29fe8b77a6589428e4a4f6dd"
+PV = "6.1.2"
+SRCREV = "d6a980a0da6cacb523bb1e069b1780ae1c3086a7"
 SRC_URI = " \
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;branch=linux-${LINUX_VERSION}.y \
     file://defconfig \

@@ -1,5 +1,5 @@
 # Local configuration for meta-overo images
-# Yocto Project 4.0 Poky distribution [kirkstone] branch
+# Yocto Project 4.1 Poky distribution [langdale] branch
 # This is a systemd system
 
 LICENSE_FLAGS_ACCEPTED = "commercial"
@@ -12,9 +12,9 @@ INIT_MANAGER = "systemd"
 
 MACHINE = "overo"
 
-# DL_DIR = "/src/oe"
-# SSTATE_DIR = "/oe8/overo/sstate-cache"
-# TMPDIR = "/oe8/overo/tmp"
+# DL_DIR = "/src/langdale"
+# SSTATE_DIR = "/oe2/overo/sstate-cache"
+# TMPDIR = "/oe2/overo/tmp"
 
 DISTRO = "poky"
 PACKAGE_CLASSES = "package_ipk"
@@ -23,11 +23,6 @@ SDKMACHINE = "x86_64"
 
 # for no root password
 # EXTRA_IMAGE_FEATURES = "debug-tweaks"
-
-# set the root password to jumpnowtek and force change on first login
-INHERIT += "extrausers"
-PASSWD = "\$5\$Rs.vFUjxEqVGXv2J\$zLJ/q8mv3BzT2VqopO2L70eHQxev2ddCvRlN3LeMdw/"
-EXTRA_USERS_PARAMS += " usermod -p '${PASSWD}' root; passwd-expire root;"
 
 PATCHRESOLVE = "noop"
 RM_OLD_IMAGE = "1"

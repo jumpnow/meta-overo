@@ -12,10 +12,6 @@ CORE_OS = " \
     tzdata \
 "
 
-KERNEL_EXTRA = " \
-    kernel-modules \
-"
-
 EXTRA_TOOLS = " \
     bzip2 \
     dosfstools \
@@ -42,9 +38,6 @@ SYSTEMD_STUFF = " \
 
 IMAGE_INSTALL += " \
     ${CORE_OS} \
-    ${EXTRA_TOOLS} \
-    ${KERNEL_EXTRA} \
-    ${SYSTEMD_STUFF} \
 "
 
 export IMAGE_BASENAME = "basic-image"

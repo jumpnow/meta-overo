@@ -1,26 +1,26 @@
 This layer depends on:
 
     URI: git://git.yoctoproject.org/poky.git
-    branch: kirkstone
+    branch: langdale
 
     URI: git://git.openembedded.org/meta-openembedded
-    branch: kirkstone
+    branch: langdale
 
     URI: git://git.yoctoproject.org/meta-security.git
-    branch: kirkstone
+    branch: langdale
 
 Latest commits:
 
-    poky 2f4691f403
-    meta-openembedded a8055484f
-    meta-security c79262a
+    poky b50f718e4c
+    meta-openembedded c354f9277
+    meta-security 2aa48e6
 
 meta-overo layer maintainer: Scott Ellis <scott@jumpnowtek.com>
 
 
-NOTE: The default defconfig for the 5.15 kernel in this repo has most kernel
-      protections intentionally disabled. The purpose is to create an easily
-      exploitable arm32 Linux system.
+NOTE: The default config for the 6.1 kernel in this repo has most protections
+      intentionally disabled. The purpose is to create an easily exploitable
+      arm32 Linux system.
 
       Use another kernel defconfig if you are using this repo for something
       important (bitbake -c menuconfig virtual/kernel)
