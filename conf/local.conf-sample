@@ -1,5 +1,5 @@
 # Local configuration for meta-overo images
-# Yocto Project 4.1 Poky distribution [langdale] branch
+# Yocto Project 4.2 Poky distribution [mickledore] branch
 # This is a systemd system
 
 LICENSE_FLAGS_ACCEPTED = "commercial"
@@ -12,7 +12,7 @@ INIT_MANAGER = "systemd"
 
 MACHINE = "overo"
 
-# DL_DIR = "/src/langdale"
+# DL_DIR = "/src/mickledore"
 # SSTATE_DIR = "/oe2/overo/sstate-cache"
 # TMPDIR = "/oe2/overo/tmp"
 
