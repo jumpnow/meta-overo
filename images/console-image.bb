@@ -42,13 +42,12 @@ EXTRA_TOOLS = " \
     util-linux-blkid \
     unzip \
     wget \
+    wireguard-tools \
     zip \
 "
 
 SECURITY_STUFF = " \
     checksec \
-    nmap \
-    wireguard-tools \
 "
 
 IMAGE_INSTALL += " \

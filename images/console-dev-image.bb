@@ -11,7 +11,6 @@ DEV_SDK = " \
     elfutils elfutils-binutils \
     gcc \
     gcc-symlinks \
-    gdb \
     g++ \
     g++-symlinks \
     gettext \
@@ -21,7 +20,6 @@ DEV_SDK = " \
     libstdc++-dev \
     libtool \
     make \
-    perl-modules \
     pkgconfig \
     python3-modules \
 "

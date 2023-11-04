@@ -1,6 +1,5 @@
 # Local configuration for meta-overo images
-# Yocto Project 4.2 Poky distribution [mickledore] branch
-# This is a systemd system
+# Yocto Project 4.3 Poky distribution [nanbield] branch
 
 LICENSE_FLAGS_ACCEPTED = "commercial"
 
@@ -12,7 +11,7 @@ INIT_MANAGER = "systemd"
 
 MACHINE = "overo"
 
-# DL_DIR = "/src/mickledore"
+# DL_DIR = "/src/nanbield"
 # SSTATE_DIR = "/oe2/overo/sstate-cache"
 # TMPDIR = "/oe2/overo/tmp"
 
@@ -22,7 +21,7 @@ PACKAGE_CLASSES = "package_ipk"
 SDKMACHINE = "x86_64"
 
 # for no root password
-# EXTRA_IMAGE_FEATURES = "debug-tweaks"
+EXTRA_IMAGE_FEATURES = "debug-tweaks"
 
 PATCHRESOLVE = "noop"
 RM_OLD_IMAGE = "1"
