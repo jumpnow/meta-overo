@@ -7,6 +7,10 @@ KERNEL_CONFIG_COMMAND = "oe_runmake_call -C ${S} CC="${KERNEL_CC}" O=${B} olddef
 COMPATIBLE_MACHINE = "overo"
 
 KERNEL_DEVICETREE = "\
+    ti/omap/omap3-overo-chestnut43.dtb \
+    ti/omap/omap3-overo-storm-chestnut43.dtb \
+    ti/omap/omap3-overo-palo43.dtb \
+    ti/omap/omap3-overo-storm-palo43.dtb \
     ti/omap/omap3-overo-storm-tobi.dtb \
     ti/omap/omap3-overo-tobi.dtb \
 "
@@ -17,8 +21,8 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/linux-stable-${LINUX_VERSION}:"
 
 S = "${WORKDIR}/git"
 
-PV = "6.6.8"
-SRCREV = "4c9646a796d66a2d81871a694e88e19a38b115a7"
+PV = "6.6.9"
+SRCREV = "5e9df83a705290c4d974693097df1da9cbe25854"
 SRC_URI = " \
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;branch=linux-${LINUX_VERSION}.y \
     file://defconfig \
