@@ -46,14 +46,9 @@ EXTRA_TOOLS = " \
     zip \
 "
 
-SECURITY_STUFF = " \
-    checksec \
-"
-
 IMAGE_INSTALL += " \
     ${CORE_OS} \
     ${EXTRA_TOOLS} \
-    ${SECURITY_STUFF} \
 "
 
 set_local_timezone() {
