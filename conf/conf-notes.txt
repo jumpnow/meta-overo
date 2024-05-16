@@ -7,5 +7,4 @@ Common targets are:
 
     console-image
     console-dev-image
-    opencv-dev-image
 
