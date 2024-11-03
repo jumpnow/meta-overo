@@ -8,5 +8,5 @@ This layer depends on:
 
 Latest commits:
 
-    poky 2f136ed7ed
+    poky 3198afac87
     meta-openembedded 2e3126c9c
