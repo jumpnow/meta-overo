@@ -1,5 +1,5 @@
 # Local configuration for meta-overo images
-# Yocto Project 5.0 Poky distribution [scarthgap] branch
+# Yocto Project 5.1 Poky distribution [styhead] branch
 
 LICENSE_FLAGS_ACCEPTED = "commercial"
 
@@ -11,7 +11,7 @@ INIT_MANAGER = "systemd"
 
 MACHINE = "overo"
 
-# DL_DIR = "/src/scarthgap"
+# DL_DIR = "/src/styhead"
 # SSTATE_DIR = "/oe2/overo/sstate-cache"
 # TMPDIR = "/oe2/overo/tmp"
 

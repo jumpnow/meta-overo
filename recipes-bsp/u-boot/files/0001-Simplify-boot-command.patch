@@ -3,6 +3,9 @@ From: Scott Ellis <scott@jumpnowtek.com>
 Date: Sun, 4 Sep 2022 11:48:37 -0400
 Subject: [PATCH] Simplify boot command
 
+Upstream-Status: Inactive-Upstream
+
+Signed-off-by: Scott Ellis <7b2da198@proton.me>
 ---
  include/configs/omap3_overo.h | 60 ++---------------------------------
  1 file changed, 2 insertions(+), 58 deletions(-)
