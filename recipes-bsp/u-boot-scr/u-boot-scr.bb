@@ -10,8 +10,10 @@ DEPENDS = "u-boot-mkimage-native"
 
 SRC_URI = "file://boot.cmd"
 
+S = "${UNPACKDIR}"
+
 do_compile() {
-    mkimage -A arm -T script -C none -n "Boot script" -d "${WORKDIR}/boot.cmd" boot.scr
+    mkimage -A arm -T script -C none -n "Boot script" -d "${S}/boot.cmd" boot.scr
 }
 
 do_deploy() {
