@@ -1,5 +1,5 @@
 # Local configuration for meta-overo images
-# Yocto Project 5.1 Poky distribution [styhead] branch
+# Yocto Project 5.2 Poky distribution [walnascar] branch
 
 LICENSE_FLAGS_ACCEPTED = "commercial"
 
@@ -11,17 +11,16 @@ INIT_MANAGER = "systemd"
 
 MACHINE = "overo"
 
-# DL_DIR = "/src/styhead"
-# SSTATE_DIR = "/oe2/overo/sstate-cache"
-# TMPDIR = "/oe2/overo/tmp"
+# DL_DIR = "/src/walnascar"
+# SSTATE_DIR = "/oe6/overo/sstate-cache"
+# TMPDIR = "/oe6/overo/tmp"
 
 DISTRO = "poky"
 PACKAGE_CLASSES = "package_ipk"
 
 SDKMACHINE = "x86_64"
 
-# for no root password
-EXTRA_IMAGE_FEATURES = "debug-tweaks"
+EXTRA_IMAGE_FEATURES = "empty-root-password allow-empty-password allow-root-login"
 
 PATCHRESOLVE = "noop"
 RM_OLD_IMAGE = "1"
